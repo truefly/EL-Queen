@@ -1,11 +1,11 @@
 <!--  -->
 
 <style lang='scss' type='stylesheet/scss' scoped>
-.queens-warpper {
+.queens-warpper1 {
   position: relative;
-  width: 70%;
-  height: 70%;
-  margin-top: 22%;
+  width: 100%;
+  height: 100%;
+  // margin-top: 22%;
 
   .queen-warpper {
     width: 100%;
@@ -19,25 +19,9 @@
     align-items: center;
 
     left: 100px;
-    &.left-top {
-      top: 0;
-      left: 0;
-    }
-    &.left-bottom {
-      left: 0;
-      bottom: 0;
-    }
-    &.right-top {
-      right: 0;
-      top: 0;
-    }
-    &.right-bottom {
-      right: 0;
-      bottom: 0;
-    }
-
     .queen {
-      width: 80%;
+      width: 100%;
+      // height: 100%;
       // height: 80%;
       position: relative;
       z-index: 2;
@@ -61,16 +45,12 @@
 </style>
 
 <template>
-  <div class="queens-warpper">
+  <div class="queens-warpper1">
     <div class="wrong"></div>
     <div :class="locationList[showIndex]"
          :id="`queen-card-${index}`"
          @click="clickItem"
          class="queen-warpper">
-      <img class="front heart"
-           src="../../assets/heart.png">
-      <img class="back heart"
-           src="../../assets/heart.png">
       <img :src="require('../../assets/'+(locationList[showIndex]||'left-top')+'.png')"
            class="queen">
     </div>
@@ -78,9 +58,9 @@
 </template>
 
 <script type='text/ecmascript-6'>
-import { TweenMax, Power2, TimelineLite } from "gsap/TweenMax";
+import { TweenMax, Power2, TimelineLite, SlowMo } from "gsap/TweenMax";
 export default {
-  props: ["index", "queenIndex", "endGame"],
+  props: ["index", "queenIndex", "endGame", "card"],
   data() {
     return {
       locationList: ["left-top", "right-top", "left-bottom", "right-bottom"],
@@ -92,14 +72,17 @@ export default {
     };
   },
   mounted() {
-    console.log(this.queenIndex);
-
     this.locationList.push(this.locationList[this.queenIndex]);
     this.locationList.push(this.locationList[this.queenIndex]);
 
     this.$nextTick(_ => {
       this.begin();
     });
+  },
+  computed: {
+    ratio() {
+      return window.innerWidth / 375;
+    }
   },
   methods: {
     clickItem() {
@@ -112,6 +95,37 @@ export default {
       if (+this.showIndex !== +this.queenIndex && this.showIndex <= 3) {
         this.isWrong = true;
         this.tween.pause();
+
+        TweenMax.fromTo(
+          `#queen-card-${this.index}`,
+          0.2,
+          { opacity: 1 },
+          { opacity: 0 }
+        );
+        setTimeout(() => {
+          TweenMax.to(`#queen-card-${this.index}`, 0.2, { opacity: 1 });
+          setTimeout(() => {
+            TweenMax.to(`#queen-card-${this.index}`, 0.2, { opacity: 0 });
+            setTimeout(() => {
+              TweenMax.to(`#queen-card-${this.index}`, 0.2, {
+                opacity: 1,
+                left: 0
+              });
+            }, 200);
+          }, 200);
+        }, 200);
+        // .fromTo(
+        //   `#queen-card-${this.index}`,
+        //   0.2,
+        //   { opacity: 1 },
+        //   { opacity: 0 }
+        // )
+        // .fromTo(
+        //   `#queen-card-${this.index}`,
+        //   0.2,
+        //   { opacity: 0 },
+        //   { opacity: 1 }
+        // );
 
         this.$emit("error");
 
@@ -135,7 +149,7 @@ export default {
       // document.querySelector(`#queen-card-${index}`).style.left = "200px";
 
       TweenMax.set(`#queen-card-${index}`, {
-        x: distance
+        x: distance * this.ratio
       });
 
       this.timeOut = setTimeout(() => {
@@ -147,8 +161,16 @@ export default {
           TweenLite.fromTo(
             `#queen-card-${index}`,
             speed,
-            { left: distance, transform: "translateX(0)" },
-            { left: -distance, transform: "translateX(1)" }
+            {
+              left: distance * this.ratio,
+              transform: "translateX(0)",
+              ease: SlowMo.ease.config(0.7, 0.4, false)
+            },
+            {
+              left: -distance * this.ratio,
+              transform: "translateX(1)",
+              ease: SlowMo.ease.config(0.7, 0.4, false)
+            }
           );
 
         this.timeOut = setTimeout(() => {

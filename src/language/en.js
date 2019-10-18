@@ -14,10 +14,10 @@ module.exports = {
       <div class='p'><div class='line'>
       All four Queens will randomly appear across the windows of the townhouse;v players must capture their chosen Queen of Hearts four times to win.
       </div></div>
-      <div class='p'><div class='line'>
+      <div class='p'  style="margin-bottom:3vw"><div class='line'>
       Limit one per person. Gifts can only be redeemed at participating Estée Lauder Travel Retail locations while supplies last. 
       </div></div>
-      <div class='p'><div class='line'>
+      <div class='p' style="margin-top:3vw"><div class='line' style="font-size:3vw !important;line-height:4.5vw">
       *Estée Lauder Travel Retail reserves the final right for this campaign.
       </div></div>
     `,
@@ -44,7 +44,7 @@ module.exports = {
       Limit one per person while supplies last. Gifts are first come, first serve and may vary by location.
       </div></div>
     
-      <div class='p'><div class='line'>
+      <div class='p'><div class='line' style="font-size:3vw !important;line-height=4.5vw">
       *Estée Lauder Travel Retail reserves the final right for this campaign.    
       </div></div>
     `

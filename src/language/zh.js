@@ -19,8 +19,10 @@ module.exports = {
       <div class='p'><div class='line'>
       4. 根据屏幕提示，前往雅诗兰黛免税专柜领取假日专属礼赠
       </div></div>
-      <div class='p'><div class='line'>
+      <div class='p'><div class='line' style="font-size:3vw !important;line-height=4.5vw">
       *数量有限，赠完即止
+      </div>
+      <div class='line' style="font-size:3vw !important;line-height=4.5vw">
       *雅诗兰黛旅游零售保留对本次活动的最终解释权
       </div></div>
     `,
@@ -28,7 +30,7 @@ module.exports = {
     terms: "礼赠细则"
   },
   terms: {
-    title: "Game Terms",
+    title: "礼赠细则",
     content: `
       <div class='p'>
         <div class='line'>
@@ -47,7 +49,7 @@ module.exports = {
         每人限领一份，礼物以专柜实际领取的实物为准，数量有限，先到先得。若在活动截止日期前全部发放完毕，则无法再领取。
       </div></div>
     
-      <div class='p'><div class='line'>
+      <div class='p'><div class='line' style="font-size:3vw !important;line-height=4.5vw">
         *雅诗兰黛旅游零售保留对本次活动的最终解释权    
       </div></div>
     `
@@ -64,17 +66,23 @@ module.exports = {
     content: `
     <div class='p'>
       <div class='line'>
-      请向雅诗兰黛免税柜台美妆顾问展示此页面，并确保由其点击确认按钮
+      请向雅诗兰黛免税柜台美妆顾问展示此页面，
+      </div>
+      <div class='line'>
+      并确保由其点击确认按钮
       </div>
     </div>
     <div class='p'>
       <div class='line'>
-      若您本人点击确认按钮，您将无法获得此份免税礼赠
+      若您本人点击确认按钮，
+      </div>
+      <div class='line'>      
+      您将无法获得此份免税礼赠
       </div>
     </div>
   `,
     confirm: "确认兑换",
-    terms: "游戏细则",
+    terms: "礼赠细则",
     success: "兑换成功，感谢参与！"
   }
 };

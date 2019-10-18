@@ -1,17 +1,53 @@
 <!--  -->
 
 <style lang='scss' type='stylesheet/scss' scoped>
+.fade-enter-active {
+  transition: opacity 1s;
+}
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.move-enter-active,
+.move-leave-active {
+  transition: all 0.6s;
+}
+.move-enter,
+.move-leave-to {
+  opacity: 0;
+  transform: translateY(2vh);
+}
+
+.move-down-enter-active,
+.move-down-leave-active {
+  transition: all 0.6s;
+}
+.move-down-enter,
+.move-down-leave-to {
+  opacity: 0;
+  transform: translateY(-2vh);
+}
+
 .rule {
-  padding: 10vh 11vw;
+  padding: 16vw 11vw;
   box-sizing: border-box;
   text-align: center;
   height: 100vh;
 
   .campaign {
-    font-size: 4vw;
+    font-size: 5vw;
     color: #221e1f;
     text-decoration: underline;
     margin-top: 2vw;
+  }
+
+  .head-box {
+    width: 40vw;
+    height: 13vw;
   }
 }
 .button-border {
@@ -19,70 +55,64 @@
   margin: 0 auto;
   margin-top: 2vw;
 }
-
-.content {
-  min-height: 45vh;
+.btn {
+  margin-top: 8vw;
 }
 </style>
 
 <template>
   <div @click="showDetail=false">
     <div class="rule">
-      <strip height="40px"></strip>
+      <transition name="move-down">
+        <div class="head-box"
+             v-if="show">
+          <span>{{$t('rule.title')}}</span>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div v-if="show">
+          <div v-html="$t('rule.content')"
+               class="content"></div>
+        </div>
+      </transition>
 
-      <h1 class="title">{{$t('rule.title')}}</h1>
+      <transition name="move">
+        <div v-if="show">
+          <div class="btn"
+               @click="start">{{$t('rule.start')}}</div>
 
-      <div v-html="$t('rule.content')"
-           class="content"></div>
-
-      <!-- <div v-for="(items,index) in text"
-           class="p">
-        <div v-for="(i,idx) in items"
-             class="line">{{i}}</div>
-      </div> -->
-
-      <div class="btn"
-           @click="start">{{$t('rule.start')}}</div>
-
-      <p class="button-border"
-         @click.stop="showDetail=true">{{$t('rule.terms')}}</p>
+          <p class="button-border"
+             @click.stop="showDetail=true">{{$t('rule.terms')}}</p>
+        </div>
+      </transition>
     </div>
 
     <transition name="fade">
-      <term v-if="showDetail"></term>
+      <term v-show="showDetail"></term>
     </transition>
 
   </div>
 </template>
 
 <script type='text/ecmascript-6'>
-import strip from "./components/strip";
 import term from "./components/term";
 
 export default {
-  components: { strip, term },
+  components: { term },
   data() {
     return {
-      text: [
-        [
-          "There are 4 queens with different styles,",
-          "players should pick up their preferred queen of hearts."
-        ],
-        [
-          "All four queens will randomly moving across the windows of the house, players need to catch their chosen Queen of Hearts to light up the grey cards."
-        ],
-        [
-          "Players who successfully light up all grey cards are invited to the Estee Lauder Travel Retail counters to get the exclusive offer."
-        ],
-        [
-          "Gift can only be redeemed at participating Estee Lauder travel retail counters while supplies last."
-        ],
-        [
-          "*Estee Lauder Travel Retail reserves the final right for this campaign.V"
-        ]
-      ],
-      showDetail: false
+      showDetail: false,
+      show: false,
+      showBtn: false
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.show = true;
+      // setTimeout(() => {
+      //   this.showBtn = true;
+      // }, 1000);
+    }, 400);
   },
   methods: {
     start() {

@@ -21,9 +21,11 @@
        @click.stop
        v-show="showLanguage">
     <div @click="updateShowLanguage('en')"
-         class="button-border">English</div>
+         class="button-border bg">English</div>
     <div @click="updateShowLanguage('zh')"
-         class="button-border">中文</div>
+         class="button-border bg">中文</div>
+    <div @click="updateShowLanguage('zh')"
+         class="button-border bg">Español</div>
   </div>
 </template>
 
@@ -37,7 +39,9 @@ export default {
     updateShowLanguage(lan) {
       localStorage.setItem("language", lan);
       this.$i18n.locale = lan;
-      this.$emit("update:showLanguage", false);
+      // this.$emit("update:showLanguage", false);
+
+      this.$emit("done");
     }
   }
 };

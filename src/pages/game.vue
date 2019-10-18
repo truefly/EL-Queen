@@ -1,6 +1,32 @@
 <!--  -->
 
 <style lang='scss' type='stylesheet/scss' scoped>
+.move-down-enter-active,
+.move-down-leave-active {
+  transition: all 0.6s;
+}
+.move-down-enter,
+.move-down-leave-to {
+  opacity: 0;
+  transform: translateY(-2vh);
+}
+
+.move-left-enter-active {
+  transition: all 0.6s;
+}
+.move-left-enter {
+  opacity: 0;
+  transform: translateX(-30vw);
+}
+
+.move-right-enter-active {
+  transition: all 0.6s;
+}
+.move-right-enter {
+  opacity: 0;
+  transform: translateX(30vw);
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
@@ -12,14 +38,24 @@
 
 .game {
   padding-top: 6vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .queens-warpper {
-  position: relative;
+  position: fixed;
   width: 60vw;
   height: 94vw;
   margin: 0 auto;
-  margin-top: 3vw;
+  // margin-top: 12vh;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  z-index: 9;
   & > .queen {
     width: calc(38vw * 0.55 * 0.3);
     // height: calc(61vw * 0.534 * 0.3);
@@ -29,34 +65,45 @@
     z-index: 2;
   }
 
+  .queens-bg {
+    background-image: url("../assets/queen-box.png");
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+  }
+
   .queen-warpper {
     width: 28vw;
     height: 45vw;
-    background-image: url("../assets/queen-box.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    &:after {
-      position: absolute;
-      content: "";
-      transition: all 0.4s ease;
-      opacity: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 3;
-    }
-    &.mask {
-      &:after {
-        opacity: 1;
-      }
-    }
+    // &:after {
+    //   position: absolute;
+    //   content: "";
+    //   transition: all 0.4s ease;
+    //   opacity: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   top: 0;
+    //   background: rgba(0, 0, 0, 0.8);
+    //   z-index: 3;
+    // }
+    // &.mask {
+    //   &:after {
+    //     opacity: 1;
+    //   }
+    // }
 
     &.left-top {
       top: 0;
@@ -107,19 +154,23 @@
 
 .buildings {
   position: fixed;
-  transition: all 0.4s ease;
-  z-index: 2;
+  // transition: all 0.4s ease;
+  z-index: 10;
   bottom: 29vw;
   // bottom: 30.7vw;
+  top: 32vw;
   left: 5vw;
   width: 90vw;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   .building {
-    position: absolute;
-    // bottom: -8vw;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    @media screen and (min-height: 630px) {
+      transform: scale(1.3) !important;
+    }
     width: 70vw;
     height: 80vw;
     background-image: url("../assets/building.png");
@@ -146,7 +197,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
   background: linear-gradient(
     -45deg,
     #dbcba6 0%,
@@ -184,7 +235,7 @@
         position: fixed;
         bottom: 48vh;
         left: 42vw;
-        z-index: 9;
+        z-index: 99;
         transform: scale(3);
 
         .queen-warpper {
@@ -262,47 +313,60 @@
 <template>
   <div class="game">
     <strip height="80px"></strip>
-
-    <div class="head-box">
-      <span>{{$t(title)}}</span>
-    </div>
-
-    <transition name="fade">
-      <div class="queens-warpper"
-           v-show="!firstEnd">
-        <div v-for="(item,index) in locationList"
-             :id="item"
-             @click="chooseQueen(item,index)"
-             :class="`${item} ${queenIndex!==index&&queenIndex!==-1?'mask':''}`"
-             :style="queenIndex===index?'z-index:6':''"
-             v-show="!hideOther||queenIndex===index"
-             class="queen-warpper">
-          <transition name="fade">
-            <div v-show="queenIndex===index">
-              <img class="front heart"
-                   src="../assets/heart.png">
-              <img class="back heart"
-                   src="../assets/heart.png">
-            </div>
-          </transition>
-          <img :src="require('../assets/'+item+'.png')"
-               class="queen">
-        </div>
+    <transition name="move-down">
+      <div class="head-box"
+           v-show="show">
+        <span>{{$t(title)}}</span>
       </div>
     </transition>
 
+    <!-- <transition name="fade"> -->·
+    <div class="queens-warpper"
+         :style="{marginTop}">
+      <div v-for="(item,index) in locationList">
+        <transition :name="`move-${index%2===0?'left':'right'}`">
+          <div :id="item"
+               @click="chooseQueen(item,index)"
+               :class="`${item}`"
+               :style="queenIndex===index?'z-index:6':''"
+               v-if="show&&(!hideOther||queenIndex===index)"
+               class="queen-warpper">
+
+            <div id="queens-bg">
+              <div class="queens-bg"></div>
+              <transition name="fade">
+                <div v-show="queenIndex===index&&!hideBg">
+                  <img class="front heart"
+                       src="../assets/heart.png">
+                  <img class="back heart"
+                       src="../assets/heart.png">
+                </div>
+              </transition>
+            </div>
+            <img :src="require('../assets/'+item+'.png')"
+                 class="queen">
+          </div>
+        </transition>
+      </div>
+
+    </div>
+    <!-- </transition> -->
+
     <transition name="fade">
       <div class="buildings"
-           @click="begin"
-           :style="scale?'transform: scale(1);top: -6vw;':'transform: scale(5);top: -6vw'"
-           v-if="firstEnd&&!showCode">
-        <div class="building">
+           id="buildings"
+           @click="begin">
+        <!-- v-if="firstEnd&&!showCode" -->
+        <!-- :style="scale?'transform: scale(1);':'transform: scale(5)'" -->
+        <div class="building"
+             id="building">
           <div class="choose-item"
                :id="`choose-item-${index}`"
                v-show="beginGame"
                v-for="(item,index) in targetList"
-               :style="{left:item.left,top:item.top,width:item.width,height:item.height}">
+               :style="{left:item.left*ratio+'px',top:item.top*ratio+'px',width:item.width*ratio+'px',height:item.height*ratio+'px'}">
             <card :index="index"
+                  :item="item"
                   @error="error"
                   @current="current"
                   :endGame="endGame"
@@ -361,11 +425,13 @@ import card from "./components/card";
 import { TweenMax, Power2, TimelineLite } from "gsap/TweenMax";
 import VueQr from "vue-qr";
 
-const queenFirstMoveSpeed = 1;
+const queenFirstMoveSpeed = 0.6;
 export default {
   components: { strip, card, VueQr },
   data() {
     return {
+      hideBg: false,
+      show: false,
       title: "",
       // 是否显示二维码
       showCode: false,
@@ -386,79 +452,79 @@ export default {
       // 房子的位置列表
       targetList: [
         {
-          top: "52px",
-          left: "46px",
-          width: "20px",
-          height: "37px"
+          top: "52",
+          left: "46",
+          width: "20",
+          height: "37"
         },
         {
-          top: "52px",
-          left: "121px",
-          width: "20px",
-          height: "37px"
+          top: "52",
+          left: "121",
+          width: "20",
+          height: "37"
         },
         {
-          top: "52px",
-          left: "195px",
-          width: "20px",
-          height: "37px"
-        },
-
-        {
-          top: "120px",
-          left: "46px",
-          width: "20px",
-          height: "37px"
-        },
-        {
-          top: "120px",
-          left: "121px",
-          width: "20px",
-          height: "37px"
-        },
-        {
-          top: "120px",
-          left: "195px",
-          width: "20px",
-          height: "37px"
+          top: "52",
+          left: "195",
+          width: "20",
+          height: "37"
         },
 
         {
-          top: "182px",
-          left: "45px",
-          width: "20px",
-          height: "37px"
+          top: "120",
+          left: "46",
+          width: "20",
+          height: "37"
         },
         {
-          top: "182px",
-          left: "120px",
-          width: "20px",
-          height: "37px"
+          top: "120",
+          left: "121",
+          width: "20",
+          height: "37"
         },
         {
-          top: "182px",
-          left: "194px",
-          width: "20px",
-          height: "37px"
+          top: "120",
+          left: "195",
+          width: "20",
+          height: "37"
         },
 
         {
-          top: "250px",
-          left: "46px",
-          width: "20px",
-          height: "37px"
+          top: "182",
+          left: "45",
+          width: "20",
+          height: "37"
         },
         {
-          top: "250px",
-          left: "120px",
-          width: "20px",
-          height: "37px"
+          top: "182",
+          left: "120",
+          width: "20",
+          height: "37"
         },
         {
-          top: "250px",
-          left: "195px",
-          width: "20px",
-          height: "37px"
+          top: "182",
+          left: "194",
+          width: "20",
+          height: "37"
+        },
+
+        {
+          top: "250",
+          left: "46",
+          width: "20",
+          height: "37"
+        },
+        {
+          top: "250",
+          left: "120",
+          width: "20",
+          height: "37"
+        },
+        {
+          top: "250",
+          left: "195",
+          width: "20",
+          height: "37"
         }
       ],
       // 错误次数
@@ -466,7 +532,24 @@ export default {
     };
   },
   mounted() {
+    TweenMax.set("#buildings", {
+      opacity: 0,
+      display: "none",
+      scale: 8,
+      zIndex: 8
+    });
+
     this.title = "game.chooseQueen";
+
+    this.show = true;
+  },
+  computed: {
+    ratio() {
+      return window.innerWidth / 375;
+    },
+    marginTop() {
+      return window.innerWidth / window.innerHeight > 0.68 ? "12vh" : "3vh";
+    }
   },
   methods: {
     error() {
@@ -481,13 +564,11 @@ export default {
     current() {
       let idx;
       this.selectedQueen.find((e, index) => {
-        console.log(index);
         idx = index;
         this.selectedQueen[index] = true;
         return !e;
       });
 
-      console.log(this.selectedQueen);
       this.$forceUpdate();
       this.$nextTick(_ => {
         let dom = document
@@ -518,7 +599,8 @@ export default {
           this.endGame = true;
           setTimeout(() => {
             this.title = this.$t("game.congratulations");
-            this.showCode = true;
+            // this.showCode = true;
+            window.location.replace("/el/queen/#/success");
           }, 1800);
         }
       });
@@ -551,7 +633,8 @@ export default {
         right: "unset",
         bottom: "unset",
         left: "unset",
-        ease: Power2.easeIn
+        ease: Power2.easeIn,
+        opacity: 0
       };
       target[data[0]] = 0;
       target[data[1]] = 0;
@@ -569,7 +652,6 @@ export default {
 
       switch (item) {
         case "left-top":
-          console.log("left-top");
           RightTop.to("#right-top", 0.3 * queenFirstMoveSpeed, {
             ease: Power2.easeInOut,
             transform: "rotate(-4deg)"
@@ -591,7 +673,6 @@ export default {
           });
           break;
         case "left-bottom":
-          console.log("left-bottom");
           RightBottom.to("#right-bottom", 0.3 * queenFirstMoveSpeed, {
             ease: Power2.easeInOut,
             transform: "rotate(-4deg)"
@@ -613,7 +694,6 @@ export default {
           });
           break;
         case "right-top":
-          console.log("right-top");
           LeftTop.to("#left-top", 0.3 * queenFirstMoveSpeed, {
             ease: Power2.easeInOut,
             transform: "rotate(4deg)"
@@ -635,7 +715,6 @@ export default {
           });
           break;
         case "right-bottom":
-          console.log("right-bottom");
           LeftBottom.to("#left-bottom", 0.3 * queenFirstMoveSpeed, {
             ease: Power2.easeInOut,
             transform: "rotate(4deg)"
@@ -662,7 +741,7 @@ export default {
       setTimeout(() => {
         this.hideOther = true;
 
-        new TweenMax.to(`#${item}`, 1, {
+        new TweenMax.to(`#${item}`, 0.5, {
           left: "11.3vw",
           top: "2.9vw",
           width: "38vw",
@@ -670,32 +749,64 @@ export default {
         });
 
         setTimeout(() => {
+          // this.hideBg = true;
+
+          TweenMax.to("#queens-bg", 0.3, {
+            opacity: 0,
+            display: "none"
+          });
           this.firstEnd = true;
-          new TweenMax.to(`#${item}`, 0.4, {
-            top: -21,
-            scale: 0.11
-          });
+          TweenMax.set("#buildings", { display: "flex" });
+
+          let height = document
+            .querySelector("#building")
+            .getBoundingClientRect().height;
+
+          TweenMax.set("#buildings", { y: height * 0.25 });
+
+          TweenMax.fromTo(
+            "#buildings",
+            0.3,
+            { opacity: 0 },
+            { opacity: 1, zIndex: "8" }
+          );
+
           setTimeout(() => {
-            new TweenMax.to(`#${item}`, 0.4, {
-              x: -10,
-              opacity: 0
+            TweenMax.fromTo(
+              "#buildings",
+              0.4,
+              {
+                scale: 5,
+                y: height * 0.25
+              },
+              { scale: 1, y: 0 }
+            );
+
+            TweenMax.to(`#${item}`, 0.4, {
+              y: 21,
+              scale: 0.01,
+              opacity: 0,
+              ease: Power2.ease
+              // y: "-5vh"
             });
-          }, 400);
-          this.$nextTick(() => {
-            this.fistEndEnd = true;
-            this.title = "game.chooseSuccess";
-            // console.log("end");
-            this.begin();
-          });
-        }, 1000);
+
+            setTimeout(() => {
+              new TweenMax.to(`#${item}`, 0.4, {
+                x: -10,
+                opacity: 0
+              });
+            }, 400);
+            this.$nextTick(() => {
+              this.fistEndEnd = true;
+              this.title = "game.chooseSuccess";
+              this.begin();
+            });
+          }, 700);
+        }, 500);
       }, queenFirstMoveSpeed * 1000);
     },
     dumpNext() {
-      // this.$emit("dumpIndex", 3);
-      console.log(1);
-
       this.$router.push("/success");
-      console.log(1);
     }
   }
 };

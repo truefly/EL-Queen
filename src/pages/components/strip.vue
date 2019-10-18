@@ -3,8 +3,11 @@
 <style lang='scss' type='stylesheet/scss' scoped>
 .strip {
   display: flex;
-  background-image: url("../../assets/strip.png");
-  &.top {
+  background-image: url("../../assets/s.png");
+  background-size: 100% auto;
+  height: 50vh;
+  background-repeat: no-repeat;
+  &.bottom {
     transform: scaleY(-1);
   }
 }
@@ -27,11 +30,11 @@
 
 <template>
   <div>
-    <div class="strip top"
-         :style="{height:height,backgroundSize:`${width} ${height}`}">
+    <div class="strip top">
+      <!-- :style="{height:height,backgroundSize:`${width} ${height}`}" -->
     </div>
-    <div class="strip bottom"
-         :style="{height:height,backgroundSize:`${width} ${height}`}">
+    <div class="strip bottom">
+      <!-- :style="{height:height,backgroundSize:`${width} ${height}`}" -->
     </div>
   </div>
 </template>

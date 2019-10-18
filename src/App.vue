@@ -79,9 +79,10 @@ export default {
 .p {
   margin: 4.5vw 0;
   .line {
-    font-size: 3.5vw;
-    line-height: 5vw;
+    font-size: 4vw;
+    line-height: 6vw;
     color: #221e1f;
+    text-align: left;
   }
 }
 
@@ -95,7 +96,12 @@ export default {
   height: 10vw;
   line-height: 10vw;
   color: white;
-  background: url("./assets/btn-border.png");
+  &.bg {
+    background-image: url("./assets/btn-border.png");
+    background-size: 100% 100%;
+    text-decoration: none;
+  }
+  text-decoration: underline;
   background-size: 100% 100%;
   box-sizing: border-box;
   text-align: center;

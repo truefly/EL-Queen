@@ -37,25 +37,7 @@
 <script type='text/ecmascript-6'>
 export default {
   data() {
-    return {
-      term: [
-        [
-          "Samples of your Estee Lauder Holiday must haves includes:",
-          "(Product name & size)",
-          "(Product name & size)",
-          "(Product name & size)"
-        ],
-        [
-          "Your QR-code is the only voucher to redeem the gift and can only be used once"
-        ],
-        [
-          "The gifts are subject to the actual product given by the designated Estee Lauder Travel Retail counter, and the quantity is limited. If the gift stock is diminished before the game period ends, additional product will not be offered."
-        ],
-        [
-          "*Estee Lauder Travel Retail reserves the final right for this campaign."
-        ]
-      ]
-    };
+    return {};
   }
 };
 </script>
