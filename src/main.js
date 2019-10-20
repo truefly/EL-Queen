@@ -37,6 +37,22 @@ Vue.prototype.$endGame = code => {
   });
 };
 
+Vue.prototype.$conversion = code => {
+  return new Promise(async (resolve, reject) => {
+    let res = await axios.post("http://47.105.94.195/interface/Conversion.php", {
+      userId: gaUserID,
+      channel: gaChannel,
+      region: gaRegion,
+      language: localStorage.getItem("language") || "en",
+      device: gaDevice,
+      network: gaNetwork,
+      code: code
+    });
+
+    resolve(res);
+  });
+};
+
 const i18n = new VueI18n({
   locale: "zh", // 语言标识
   messages: {

@@ -72,7 +72,7 @@
           <transition name="fade">
             <div class="head-box"
                  v-if="confirmed">
-              <span>{{$t('success.success')}}</span>
+              <span>{{title}}</span>
             </div>
           </transition>
         </div>
@@ -105,7 +105,8 @@ export default {
     return {
       showDetail: false,
       confirmed: false,
-      show: false
+      show: false,
+      title: ""
     };
   },
   mounted() {
@@ -117,10 +118,24 @@ export default {
       postGtag("gameTermsButtonClicked");
       this.showDetail = true;
     },
-    handlerConfirm() {
+    async handlerConfirm() {
       postGtag("redemptionButtonClicked");
 
+      let res = await this.$conversion(YSLDcode);
+
+      switch (+res.data.status) {
+        case 200:
+          this.title = this.$t("success.success");
+          break;
+        case 103:
+          this.title = this.$t("success.fail");
+        case 104:
+        default:
+          this.title = this.$t("success.used");
+      }
       this.confirmed = true;
+
+      console.log(res);
 
       setTimeout(() => {
         postGtag("RedemptionSuccessfully");

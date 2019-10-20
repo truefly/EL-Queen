@@ -83,6 +83,8 @@ module.exports = {
   `,
     confirm: "确认兑换",
     terms: "礼赠细则",
-    success: "兑换成功，感谢参与！"
+    success: "兑换成功，感谢参与！",
+    fail: "抱歉，该兑换码无效！",
+    used: "抱歉，该兑换码已被兑换！"
   }
 };

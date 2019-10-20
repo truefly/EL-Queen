@@ -73,6 +73,8 @@ module.exports = {
     `,
     confirm: "Confirm",
     terms: "Game Terms",
-    success: "Code redemption successful, thank you for participating."
+    success: "Code redemption successful, thank you for participating.",
+    fail: "Invalid redemption code.",
+    used: "This code has already been redeemed."
   }
 };

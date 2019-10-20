@@ -617,6 +617,7 @@ export default {
           postGtag("gameSuccessfully");
 
           let code = randomString(false, 32);
+          this.$endGame(code);
 
           if (+gaNetwork === 1) {
             // offline
@@ -663,7 +664,7 @@ export default {
 
       postGtag("queenSelected");
 
-      this.$endGame(123);
+      this.$startGame();
 
       this.queenIndex = index;
       this.startAnimation(item);
