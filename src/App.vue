@@ -9,23 +9,6 @@ export default {
   name: "App",
   created() {
     let localLanguage = window.localStorage.getItem("language");
-    // if (localLanguage) {
-    //   switch (localLanguage) {
-    //     case "en":
-    //       this.lanText = "Language";
-    //       break;
-    //     case "kr":
-    //       this.lanText = "언어";
-    //       break;
-    //     case "zh":
-    //       this.lanText = "语言";
-    //       break;
-    //     default:
-    //       this.lanText = "اللغةالعربية";
-    //       break;
-    //   }
-    //   this.$store.state.language = localLanguage;
-    // } else
     var lan =
       localStorage.getItem("language") ||
       (navigator.language || navigator.browserLanguage).toLowerCase();
@@ -77,12 +60,27 @@ export default {
 }
 
 .p {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    margin: 2vw 0;
+  }
   margin: 4.5vw 0;
   .line {
     font-size: 4vw;
     line-height: 6vw;
     color: #221e1f;
     text-align: left;
+    &.small {
+      font-size: 3vw;
+      line-height: 4.5vw;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 3vw;
+      line-height: 4.5vw;
+      &.small {
+        font-size: 2.5vw;
+        line-height: 3.5vw;
+      }
+    }
   }
 }
 

@@ -46,6 +46,10 @@
 }
 
 .queens-warpper {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    transform: translateY(-50%) scale(0.8);
+    transform-origin: top;
+  }
   position: fixed;
   width: 60vw;
   height: 94vw;
@@ -157,6 +161,9 @@
   // transition: all 0.4s ease;
   z-index: 10;
   bottom: 29vw;
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    top: 24vw;
+  }
   // bottom: 30.7vw;
   top: 32vw;
   left: 5vw;
@@ -170,6 +177,9 @@
     position: relative;
     @media screen and (min-height: 630px) {
       transform: scale(1.3) !important;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      transform: scale(0.8) !important;
     }
     width: 70vw;
     height: 80vw;
@@ -308,11 +318,18 @@
     padding: 0 11vw;
   }
 }
+
+.head-box {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    // transform: scale(0.7);
+    width: 56vw;
+    height: 18vw;
+  }
+}
 </style>
 
 <template>
   <div class="game">
-    <strip height="80px"></strip>
     <transition name="move-down">
       <div class="head-box"
            v-show="show">
@@ -355,6 +372,7 @@
     <transition name="fade">
       <div class="buildings"
            id="buildings"
+           v-if="!endGame"
            @click="begin">
         <!-- v-if="firstEnd&&!showCode" -->
         <!-- :style="scale?'transform: scale(1);':'transform: scale(5)'" -->
@@ -362,7 +380,7 @@
              id="building">
           <div class="choose-item"
                :id="`choose-item-${index}`"
-               v-show="beginGame"
+               v-if="beginGame"
                v-for="(item,index) in targetList"
                :style="{left:item.left*ratio+'px',top:item.top*ratio+'px',width:item.width*ratio+'px',height:item.height*ratio+'px'}">
             <card :index="index"
@@ -379,11 +397,10 @@
 
     <transition name="fade">
       <div class="code"
-           @click="dumpNext"
            v-show="showCode">
 
         <div class="scan">{{$t('game.scan')}}</div>
-        <vue-qr text="http://192.168.0.127:8080/#/success"
+        <vue-qr :text="urlLink"
                 :size="200"></vue-qr>
       </div>
     </transition>
@@ -430,6 +447,7 @@ export default {
   components: { strip, card, VueQr },
   data() {
     return {
+      urlLink: "",
       hideBg: false,
       show: false,
       title: "",
@@ -596,12 +614,32 @@ export default {
         let l = this.selectedQueen.filter(e => e).length === 4;
 
         if (l) {
-          this.endGame = true;
-          setTimeout(() => {
-            this.title = this.$t("game.congratulations");
-            // this.showCode = true;
-            window.location.replace("/el/queen/#/success");
-          }, 1800);
+          postGtag("gameSuccessfully");
+
+          let code = randomString(false, 32);
+
+          if (+gaNetwork === 1) {
+            // offline
+            this.endGame = true;
+
+            this.urlLink =
+              window.location.href
+                .split("/?")
+                .join(
+                  `/?language=${localStorage.getItem("language")}&code=${code}&`
+                ) + "success";
+            this.showCode = true;
+          } else {
+            this.endGame = true;
+            setTimeout(() => {
+              this.title = this.$t("game.congratulations");
+              // this.showCode = true;
+              window.location.replace(
+                window.location.href.split("/?").join(`/?code=${code}&`) +
+                  "success"
+              );
+            }, 1800);
+          }
         }
       });
       // TweenMax();
@@ -622,6 +660,11 @@ export default {
       if (this.queenIndex !== -1) {
         return;
       }
+
+      postGtag("queenSelected");
+
+      this.$endGame(123);
+
       this.queenIndex = index;
       this.startAnimation(item);
     },
@@ -782,7 +825,7 @@ export default {
               { scale: 1, y: 0 }
             );
 
-            TweenMax.to(`#${item}`, 0.4, {
+            TweenMax.to(`#${item}`, 0.2, {
               y: 21,
               scale: 0.01,
               opacity: 0,
@@ -791,6 +834,10 @@ export default {
             });
 
             setTimeout(() => {
+              TweenMax.set(".queens-warpper", {
+                opacity: 0,
+                display: "none"
+              });
               new TweenMax.to(`#${item}`, 0.4, {
                 x: -10,
                 opacity: 0

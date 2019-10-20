@@ -58,7 +58,10 @@
       width: 100vw;
       margin-top: 1vh;
       position: absolute;
-      bottom: -2.5vh;
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        bottom: -4vh;
+      }
+      bottom: -3vh;
       left: 0;
       right: 0;
     }
@@ -136,12 +139,8 @@
 
 <template>
   <div class="home"
-       @click="showLanguage=true">
+       @click="init">
     <div class="mask">
-      <!-- <strip></strip> -->
-
-      <!-- <div class="language-btn"
-           @click.stop="showLanguage=true">{{$t("language")}}</div> -->
 
       <div class="head-box">
         <transition name="fade">
@@ -156,12 +155,7 @@
             <span>Capture four identical Queen of Hearts to win a FREE Estée Lauder sample</span>
           </div>
         </transition>
-        <!-- <div class="start-box">
-          <span>掀起掠心攻势，解锁惊喜小样</span>
-        </div>
-        <div class="start-box">
-          <span>Capture four identical Queen of Hearts to win a FREE Estée Lauder sample</span>
-        </div> -->
+
       </div>
 
       <!-- <div class="video"></div> -->
@@ -203,15 +197,16 @@ export default {
   created() {
     this.inter = setInterval(() => {
       this.index++;
-      // setTimeout(() => {
-      //   this.index++;
-      // }, 600);
     }, 5000);
   },
   destroyed() {
     clearInterval(this.inter);
   },
   methods: {
+    init() {
+      this.showLanguage = true;
+      postGtag("screenSaverPageClicked");
+    },
     dumpIndex() {
       setTimeout(() => {
         this.showLanguage = false;

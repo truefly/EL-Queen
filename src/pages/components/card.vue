@@ -71,10 +71,16 @@ export default {
       disabled: false
     };
   },
+  watch: {
+    queenIndex: {
+      immediate: true,
+      handler(newVal) {
+        this.locationList[4] = this.locationList[newVal];
+        this.locationList[5] = this.locationList[newVal];
+      }
+    }
+  },
   mounted() {
-    this.locationList.push(this.locationList[this.queenIndex]);
-    this.locationList.push(this.locationList[this.queenIndex]);
-
     this.$nextTick(_ => {
       this.begin();
     });

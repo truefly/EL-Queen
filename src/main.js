@@ -3,6 +3,7 @@
 import Vue from "vue";
 import App from "./App";
 import router from "./router";
+import axios from "axios";
 
 import "./fonts/stylesheet.css"; // swiper 样式
 
@@ -11,6 +12,30 @@ Vue.config.productionTip = false;
 import VueI18n from "vue-i18n";
 
 Vue.use(VueI18n);
+
+Vue.prototype.$startGame = () => {
+  axios.post("http://47.105.94.195/interface/GameStart.php", {
+    userId: gaUserID,
+    channel: gaChannel,
+    region: gaRegion,
+    language: localStorage.getItem("language") || "en",
+    device: gaDevice,
+    network: gaNetwork
+  });
+};
+
+Vue.prototype.$endGame = code => {
+  axios.post("http://47.105.94.195/interface/GameOver.php", {
+    userId: gaUserID,
+    channel: gaChannel,
+    region: gaRegion,
+    language: localStorage.getItem("language") || "en",
+    device: gaDevice,
+    network: gaNetwork,
+    code: code,
+    status: 1
+  });
+};
 
 const i18n = new VueI18n({
   locale: "zh", // 语言标识

@@ -3,11 +3,11 @@
 <style lang='scss' type='stylesheet/scss' scoped>
 .term {
   position: fixed;
-  height: 126vw;
+  height: 80vh;
   width: 88vw;
   left: 6vw;
   top: 50%;
-  margin-top: -63vw;
+  margin-top: -40vh;
   background: rgba(15, 14, 14, 0.96);
   text-align: center;
   padding: 10vw 8vw;

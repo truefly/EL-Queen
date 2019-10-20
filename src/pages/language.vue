@@ -37,9 +37,10 @@ export default {
   },
   methods: {
     updateShowLanguage(lan) {
+      postGtag("languageSelected");
+
       localStorage.setItem("language", lan);
       this.$i18n.locale = lan;
-      // this.$emit("update:showLanguage", false);
 
       this.$emit("done");
     }

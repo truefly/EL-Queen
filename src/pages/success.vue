@@ -47,6 +47,12 @@
   height: auto !important;
   padding: 6vw 0;
 }
+
+.content {
+  width: 70vw;
+  margin: 0 auto;
+  margin-top: 4vh;
+}
 </style>
 
 <template>
@@ -78,7 +84,7 @@
                v-if="!confirmed"
                @click="handlerConfirm">{{$t('success.confirm')}}</div>
           <div class="button-border"
-               @click.stop="showDetail=true">{{$t('success.terms')}}</div>
+               @click.stop="showDetails">{{$t('success.terms')}}</div>
         </div>
       </transition>
 
@@ -104,14 +110,21 @@ export default {
   },
   mounted() {
     this.show = true;
+    postGtag("enterRedemptionPage");
   },
   methods: {
+    showDetails() {
+      postGtag("gameTermsButtonClicked");
+      this.showDetail = true;
+    },
     handlerConfirm() {
+      postGtag("redemptionButtonClicked");
+
       this.confirmed = true;
 
-      // setTimeout(() => {
-      // window.location.replace("/el/queen//#/");
-      // }, 10000);
+      setTimeout(() => {
+        postGtag("RedemptionSuccessfully");
+      }, 10000);
     }
   }
 };

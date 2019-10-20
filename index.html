@@ -3,6 +3,176 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-142043189-3"
+    ></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-142043189-1");
+
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        }
+        return false;
+      }
+
+      function randomString(randomFlag, min, max) {
+        var str = "",
+          range = min,
+          arr = [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ];
+
+        // 随机产生
+        if (randomFlag) {
+          range = Math.round(Math.random() * (max - min)) + min;
+        }
+        for (var i = 0; i < range; i++) {
+          var pos = Math.round(Math.random() * (arr.length - 1));
+          str += arr[pos];
+        }
+        return str;
+      }
+
+      console.log(getQueryVariable("region"));
+
+      // let query = router.app._route.query;
+
+      var gaRegion = getQueryVariable("region") || "",
+        gaNetwork = getQueryVariable("network") || "", // 1 为离线， 0 为在线
+        gaChannel = getQueryVariable("channel") || "",
+        gaDevice = getQueryVariable("device") || "",
+        gaUserID,
+        YSLDcode = getQueryVariable("code") || "",
+        gaSiteName = "YSLD_QUEEN";
+
+      if (getQueryVariable("language")) {
+        localStorage.setItem("language", getQueryVariable("language"));
+      }
+
+      // if (getQueryVariable("userid")) {
+      //   localStorage.setItem("YS_USER", getQueryVariable("userid"));
+      // }
+
+      if (localStorage.getItem("YS_USER")) {
+        gaUserID = localStorage.getItem("YS_USER");
+      } else {
+        gaUserID = randomString(false, 16);
+        localStorage.setItem("YS_USER", gaUserID);
+      }
+
+      console.log("code:" + getQueryVariable("code"));
+      console.log("gaRegion:" + gaRegion);
+      console.log("gaNetwork:" + gaNetwork);
+      console.log("gaChannel:" + gaChannel);
+      console.log("gaDevice:" + gaDevice);
+      console.log("gaUserID:" + gaUserID);
+      console.log("language:" + localStorage.getItem("language") || "en");
+
+      var postGtag = pageView => {
+        // if (+gaNetwork === 1) {
+        //   return;
+        // }
+        gtag("event", gaSiteName + "|" + pageView, {
+          event_category: "page_view",
+          pageView: pageView,
+          channel: gaChannel,
+          language: localStorage.getItem("language") || "en",
+          network: gaNetwork,
+          device: gaDevice,
+          region: gaRegion,
+          User_ID: gaUserID,
+          event_label:
+            "region:" +
+            gaRegion +
+            "|device_version:" +
+            gaDevice +
+            "|network:" +
+            gaNetwork +
+            "|language:" +
+            (localStorage.getItem("language") || "en") +
+            "|channel:" +
+            gaChannel +
+            "|UserID:" +
+            gaUserID +
+            "|"
+        });
+      };
+    </script>
     <title>ysld</title>
 
     <style>

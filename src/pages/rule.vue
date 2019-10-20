@@ -33,6 +33,9 @@
 }
 
 .rule {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    padding: 16vw 11vw;
+  }
   padding: 16vw 11vw;
   box-sizing: border-box;
   text-align: center;
@@ -56,6 +59,9 @@
   margin-top: 2vw;
 }
 .btn {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    margin-top: 4vw;
+  }
   margin-top: 8vw;
 }
 </style>
@@ -82,7 +88,7 @@
                @click="start">{{$t('rule.start')}}</div>
 
           <p class="button-border"
-             @click.stop="showDetail=true">{{$t('rule.terms')}}</p>
+             @click.stop="showDetails">{{$t('rule.terms')}}</p>
         </div>
       </transition>
     </div>
@@ -109,13 +115,16 @@ export default {
   mounted() {
     setTimeout(() => {
       this.show = true;
-      // setTimeout(() => {
-      //   this.showBtn = true;
-      // }, 1000);
     }, 400);
   },
   methods: {
+    showDetails() {
+      postGtag("gameTermsButtonClicked");
+      this.showDetail = true;
+    },
     start() {
+      postGtag("gameStartButtonClicked");
+
       this.$emit("dumpIndex", 2);
     }
   }
