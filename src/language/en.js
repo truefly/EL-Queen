@@ -1,4 +1,7 @@
 module.exports = {
+  title: "Estée Lauder Holiday Game On!",
+  desc:
+    "Capture four identical Queen of Hearts to win a FREE Estée Lauder sample",
   language: "EN",
   start: {
     head:
@@ -12,7 +15,7 @@ module.exports = {
       Choose your Queen of Hearts and keep a close eye on her! 
       </div></div>
       <div class='p'><div class='line'>
-      All four Queens will randomly appear across the windows of the townhouse;v players must capture their chosen Queen of Hearts four times to win.
+      All four Queens will randomly appear across the windows of the townhouse; players must capture their chosen Queen of Hearts four times to win.
       </div></div>
       <div class='p'  style="margin-bottom:3vw"><div class='line'>
       Limit one per person. Gifts can only be redeemed at participating Estée Lauder Travel Retail locations while supplies last. 
@@ -62,12 +65,12 @@ module.exports = {
     content: `
     <div class='p'>
       <div class='line'>
-    Please present this page to a beauty advisor at your selected Estée Lauder Travel Retail counter, and ensure the beauty advisor taps on the "Confirm" button.
+        Please present this page to a beauty advisor at your selected Estée Lauder Travel Retail counter, and ensure the beauty advisor taps on the "Confirm" button.
       </div>
     </div>
     <div class='p'>
       <div class='line'>
-    Your right to redeem your free gift will be revoked if you click the button yourself.
+        Your right to redeem your free gift will be revoked if you click the button yourself.
       </div>
     </div>
     `,
@@ -76,5 +79,33 @@ module.exports = {
     success: "Code redemption successful, thank you for participating.",
     fail: "Invalid redemption code.",
     used: "This code has already been redeemed."
+  },
+  successSec: {
+    title: "恭喜挑战成功！",
+    content: `
+    <div class='p'>
+      <div class='line'>
+        Congratulations, you've caught four of a kind! 
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line'>
+        You win an exclusive Estee Lauder sample*! 
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line'>
+        Ask a Beauty Advisor for your prize and to learn more about our Holiday looks. 
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line small'>
+        *One per person. While supplies last.
+      </div>
+    </div>
+    `
   }
 };

@@ -198,7 +198,16 @@
   // background: lightblue;
   position: absolute;
   z-index: 4;
-  overflow: hidden;
+
+  .bg {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background-image: url("../assets/splash.png");
+    background-size: 100% 100%;
+  }
 }
 
 .bottom {
@@ -333,7 +342,7 @@
     <transition name="move-down">
       <div class="head-box"
            v-show="show">
-        <span>{{$t(title)}}</span>
+        <span v-html="$t(title)"></span>
       </div>
     </transition>
 
@@ -382,7 +391,21 @@
                :id="`choose-item-${index}`"
                v-if="beginGame"
                v-for="(item,index) in targetList"
-               :style="{left:item.left*ratio+'px',top:item.top*ratio+'px',width:item.width*ratio+'px',height:item.height*ratio+'px'}">
+               :style="{
+                 left:item.left*ratio+'px',
+                 top:item.top*ratio+'px',
+                 width:item.width*ratio+'px',
+                 height:item.height*ratio+'px'}">
+
+            <div class="bg"
+                 :id="`choose-bg-${index}`"
+                 :style="{
+                   left:-15*ratio+'px',
+                   top:-15*ratio+'px',
+                   bottom:-15*ratio+'px',
+                   right:-15*ratio+'px',
+                   opacity:0
+                   }"></div>
             <card :index="index"
                   :item="item"
                   @error="error"
@@ -619,19 +642,30 @@ export default {
           let code = randomString(false, 32);
           this.$endGame(code);
 
-          if (+gaNetwork === 1) {
-            // offline
-            this.endGame = true;
+          if (+gaNetwork === 0 && gaDevice === "mobile") {
+            setTimeout(() => {
+              window.location.replace(window.location.href + "success-sec");
+            }, 1800);
+          }
 
-            this.urlLink =
-              window.location.href
-                .split("/?")
-                .join(
-                  `/?language=${localStorage.getItem("language")}&code=${code}&`
-                ) + "success";
-            this.showCode = true;
+          if (gaDevice !== "mobile") {
+            // offline
+            setTimeout(() => {
+              this.endGame = true;
+
+              this.urlLink =
+                window.location.href
+                  .split("/?")
+                  .join(
+                    `/?language=${localStorage.getItem(
+                      "language"
+                    )}&code=${code}&`
+                  ) + "success";
+
+              this.showCode = true;
+            }, 1800);
           } else {
-            this.endGame = true;
+            // this.endGame = true;
             setTimeout(() => {
               this.title = this.$t("game.congratulations");
               // this.showCode = true;

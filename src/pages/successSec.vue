@@ -45,7 +45,7 @@
 
 .head-box {
   height: auto !important;
-  padding: 3vw 0;
+  padding: 6vw 0;
 }
 
 .content {
@@ -66,18 +66,19 @@
         <div v-if="show">
           <h1 class="title">{{$t('success.Congratulations')}}</h1>
 
-          <div v-html="$t('success.content')"
+          <div v-html="$t('successSec.content')"
                class="content">
           </div>
-          <transition name="fade">
+          <!-- <transition name="fade">
             <div class="head-box"
                  v-if="confirmed">
               <span>{{title}}</span>
             </div>
-          </transition>
+          </transition> -->
         </div>
       </transition>
 
+      <!-- 
       <transition name="move">
         <div v-show="show">
           <div class="btn"
@@ -86,7 +87,7 @@
           <div class="button-border"
                @click.stop="showDetails">{{$t('success.terms')}}</div>
         </div>
-      </transition>
+      </transition> -->
 
     </div>
 

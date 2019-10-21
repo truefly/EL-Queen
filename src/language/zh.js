@@ -1,4 +1,6 @@
 module.exports = {
+  title: "玩味雅诗兰黛掠心假日",
+  desc: "掀起掠心攻势，解锁惊喜小样",
   language: "中文",
   start: {
     head: "掀起掠心攻势，解锁惊喜小样",
@@ -57,7 +59,7 @@ module.exports = {
   game: {
     chooseQueen: "选择心仪的红心皇后",
     chooseSuccess: "选择成功！",
-    tap: "点击捕捉你所挑选的红心皇后，四次正确即挑战成功！",
+    tap: "点击捕捉你所挑选的红心皇后，<br/>四次正确即挑战成功！",
     congratulations: "恭喜挑战成功！",
     scan: "请使用手机扫描下方二维码，领取假日专属礼赠！"
   },
@@ -66,10 +68,7 @@ module.exports = {
     content: `
     <div class='p'>
       <div class='line'>
-      请向雅诗兰黛免税柜台美妆顾问展示此页面，
-      </div>
-      <div class='line'>
-      并确保由其点击确认按钮
+      请向雅诗兰黛免税柜台美妆顾问展示此页面，并确保由其点击确认按钮
       </div>
     </div>
     <div class='p'>
@@ -86,5 +85,33 @@ module.exports = {
     success: "兑换成功，感谢参与！",
     fail: "抱歉，该兑换码无效！",
     used: "抱歉，该兑换码已被兑换！"
+  },
+  successSec: {
+    title: "恭喜挑战成功！",
+    content: `
+    <div class='p'>
+      <div class='line'>
+        恭喜挑战成功！
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line'>
+        你已获得*雅诗兰黛免税礼赠一份
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line'>
+        请向美容顾问咨询奖品详情，了解更多假日掠心装扮！
+      </div>
+    </div>
+
+    <div class='p'>
+      <div class='line small'>
+        *每人限领一份，赠完即止
+      </div>
+    </div>
+    `
   }
 };

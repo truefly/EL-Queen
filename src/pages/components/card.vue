@@ -1,4 +1,4 @@
-<!--  -->
+hoo<!--  -->
 
 <style lang='scss' type='stylesheet/scss' scoped>
 .queens-warpper1 {
@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   // margin-top: 22%;
+  overflow: hidden;
 
   .queen-warpper {
     width: 100%;
@@ -51,7 +52,7 @@
          :id="`queen-card-${index}`"
          @click="clickItem"
          class="queen-warpper">
-      <img :src="require('../../assets/'+(locationList[showIndex]||'left-top')+'.png')"
+      <img :src="require('../../assets/'+(locationList[showIndex]||'left-top')+'-run.png')"
            class="queen">
     </div>
   </div>
@@ -102,21 +103,24 @@ export default {
         this.isWrong = true;
         this.tween.pause();
 
-        TweenMax.fromTo(
-          `#queen-card-${this.index}`,
-          0.2,
-          { opacity: 1 },
-          { opacity: 0 }
-        );
+        TweenMax.to(`#queen-card-${this.index}`, 0.2, {
+          opacity: 1,
+          left: 0
+        });
         setTimeout(() => {
-          TweenMax.to(`#queen-card-${this.index}`, 0.2, { opacity: 1 });
+          TweenMax.fromTo(
+            `#choose-bg-${this.index}`,
+            0.2,
+            { opacity: 0 },
+            { opacity: 1 }
+          );
           setTimeout(() => {
-            TweenMax.to(`#queen-card-${this.index}`, 0.2, { opacity: 0 });
+            TweenMax.to(`#choose-bg-${this.index}`, 0.2, { opacity: 0 });
             setTimeout(() => {
-              TweenMax.to(`#queen-card-${this.index}`, 0.2, {
-                opacity: 1,
-                left: 0
-              });
+              TweenMax.to(`#choose-bg-${this.index}`, 0.2, { opacity: 1 });
+              setTimeout(() => {
+                TweenMax.to(`#choose-bg-${this.index}`, 0.2, { opacity: 0 });
+              }, 200);
             }, 200);
           }, 200);
         }, 200);

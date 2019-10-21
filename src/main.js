@@ -14,7 +14,7 @@ import VueI18n from "vue-i18n";
 Vue.use(VueI18n);
 
 Vue.prototype.$startGame = () => {
-  axios.post("http://47.105.94.195/interface/GameStart.php", {
+  axios.post("https://www.rfisystem.com/holidaygame/interface/GameStart.php", {
     userId: gaUserID,
     channel: gaChannel,
     region: gaRegion,
@@ -25,7 +25,7 @@ Vue.prototype.$startGame = () => {
 };
 
 Vue.prototype.$endGame = code => {
-  axios.post("http://47.105.94.195/interface/GameOver.php", {
+  axios.post("https://www.rfisystem.com/holidaygame/interface/GameOver.php", {
     userId: gaUserID,
     channel: gaChannel,
     region: gaRegion,
@@ -39,18 +39,73 @@ Vue.prototype.$endGame = code => {
 
 Vue.prototype.$conversion = code => {
   return new Promise(async (resolve, reject) => {
-    let res = await axios.post("http://47.105.94.195/interface/Conversion.php", {
-      userId: gaUserID,
-      channel: gaChannel,
-      region: gaRegion,
-      language: localStorage.getItem("language") || "en",
-      device: gaDevice,
-      network: gaNetwork,
-      code: code
-    });
+    let res = await axios.post(
+      "https://www.rfisystem.com/holidaygame/interface/Conversion.php",
+      {
+        userId: gaUserID,
+        channel: gaChannel,
+        region: gaRegion,
+        language: localStorage.getItem("language") || "en",
+        device: gaDevice,
+        network: gaNetwork,
+        code: code
+      }
+    );
 
     resolve(res);
   });
+};
+
+function setWechatShareText(wechatShareText) {
+  wx.ready(function() {
+    //自定义微信分享内容功能
+    wx.onMenuShareTimeline({
+      title: wechatShareText.title,
+      link: wechatShareText.link,
+      imgUrl: wechatShareText.imgUrl,
+      success: function() {}
+    });
+    wx.onMenuShareAppMessage({
+      title: wechatShareText.title,
+      desc: wechatShareText.desc,
+      link: wechatShareText.link,
+      imgUrl: wechatShareText.imgUrl,
+      type: "",
+      dataUrl: "",
+      success: function() {}
+    });
+  });
+}
+
+Vue.prototype.$share = (title, desc) => {
+  axios
+    .get(
+      "https://www.rfisystem.com/holidaygame/interface/Cross.php?url=" +
+        encodeURIComponent(window.location.href.split("#")[0])
+    )
+    .then(data => {
+      data = data.data;
+
+      wx.config({
+        debug: false,
+        appId: data.appId,
+        timestamp: data.timestamp,
+        nonceStr: data.nonceStr,
+        signature: data.signature,
+        jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+      });
+
+      wx.ready(function() {
+        let wechatShareText = {
+          title: title,
+          desc: desc,
+          link: data.url,
+          imgUrl: "https://www.rfisystem.com/holidaygame/share.jpg"
+        };
+
+        setWechatShareText(wechatShareText);
+      });
+    });
 };
 
 const i18n = new VueI18n({

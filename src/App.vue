@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
   created() {
@@ -21,6 +22,11 @@ export default {
     } else {
       this.$i18n.locale = "en";
     }
+
+    let title = this.$t("title");
+    document.title = title;
+    let desc = this.$t("desc");
+    this.$share(title, desc);
   }
 };
 </script>

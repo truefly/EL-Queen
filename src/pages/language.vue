@@ -42,6 +42,11 @@ export default {
       localStorage.setItem("language", lan);
       this.$i18n.locale = lan;
 
+      let title = this.$t("title");
+      document.title = title;
+      let desc = this.$t("desc");
+      this.$share(title, desc);
+
       this.$emit("done");
     }
   }
