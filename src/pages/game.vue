@@ -331,7 +331,7 @@
 .head-box {
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     // transform: scale(0.7);
-    width: 56vw;
+    width: 65vw;
     height: 18vw;
   }
 }
@@ -819,6 +819,7 @@ export default {
       setTimeout(() => {
         this.hideOther = true;
 
+        // 移动选中的移动到中心
         new TweenMax.to(`#${item}`, 0.5, {
           left: "11.3vw",
           top: "2.9vw",
@@ -829,7 +830,8 @@ export default {
         setTimeout(() => {
           // this.hideBg = true;
 
-          TweenMax.to("#queens-bg", 0.3, {
+          // 楼房出现
+          TweenMax.to("#queens-bg", 0.8, {
             opacity: 0,
             display: "none"
           });
@@ -844,28 +846,49 @@ export default {
 
           TweenMax.fromTo(
             "#buildings",
-            0.3,
+            0.8,
             { opacity: 0 },
             { opacity: 1, zIndex: "8" }
           );
 
           setTimeout(() => {
-            TweenMax.fromTo(
-              "#buildings",
-              0.4,
-              {
-                scale: 5,
-                y: height * 0.25
-              },
-              { scale: 1, y: 0 }
-            );
-
-            TweenMax.to(`#${item}`, 0.2, {
+            TweenMax.to(`#${item}`, 0.3, {
               y: 21,
               scale: 0.01,
               opacity: 0,
               ease: Power2.ease
               // y: "-5vh"
+            });
+            TweenMax.fromTo(
+              "#buildings",
+              0.5,
+              {
+                scale: 8,
+                y: height * 0.25
+              },
+              {
+                scale: 1,
+                y: 0
+              }
+            );
+
+            // TweenMax.fromTo(
+            //   "#buildings",
+            //   0.8,
+            //   {
+            //     // scale: 5,
+            //     y: height * 0.25
+            //   },
+            //   {
+            //     // scale: 1,
+            //     y: 0
+            //   }
+            // );
+
+            this.$nextTick(() => {
+              this.fistEndEnd = true;
+              this.title = "game.chooseSuccess";
+              this.begin();
             });
 
             setTimeout(() => {
@@ -877,13 +900,8 @@ export default {
                 x: -10,
                 opacity: 0
               });
-            }, 400);
-            this.$nextTick(() => {
-              this.fistEndEnd = true;
-              this.title = "game.chooseSuccess";
-              this.begin();
-            });
-          }, 700);
+            }, 500);
+          }, 1300);
         }, 500);
       }, queenFirstMoveSpeed * 1000);
     },
