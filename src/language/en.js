@@ -91,7 +91,7 @@ module.exports = {
 
     <div class='p'>
       <div class='line'>
-        You win an exclusive Estee Lauder sample*! 
+        You win an exclusive Estée Lauder sample*! 
       </div>
     </div>
 

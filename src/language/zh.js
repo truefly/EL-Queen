@@ -73,10 +73,7 @@ module.exports = {
     </div>
     <div class='p'>
       <div class='line'>
-      若您本人点击确认按钮，
-      </div>
-      <div class='line'>      
-      您将无法获得此份免税礼赠
+      若您本人点击确认按钮，您将无法获得此份免税礼赠
       </div>
     </div>
   `,
