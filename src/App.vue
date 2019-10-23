@@ -1,3 +1,6 @@
+<style lang='scss' type='stylesheet/scss' scoped>
+</style>
+
 <template>
   <div id="app">
     <router-view />
@@ -9,6 +12,8 @@ import axios from "axios";
 export default {
   name: "App",
   created() {
+    console.log(this.$route.path);
+
     let localLanguage = window.localStorage.getItem("language");
     var lan =
       localStorage.getItem("language") ||
@@ -66,7 +71,7 @@ export default {
 }
 
 .p {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     margin: 2vw 0;
   }
   margin: 4.5vw 0;
@@ -79,7 +84,7 @@ export default {
       font-size: 3vw;
       line-height: 4.5vw;
     }
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
+    @media screen and (min-width: 768px) and (max-width: 1025px) {
       font-size: 3vw;
       line-height: 4.5vw;
       &.small {

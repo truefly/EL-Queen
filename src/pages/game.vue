@@ -46,7 +46,7 @@
 }
 
 .queens-warpper {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     transform: translateY(-50%) scale(0.8);
     transform-origin: top;
   }
@@ -178,7 +178,7 @@
     @media screen and (min-height: 630px) {
       transform: scale(1.3) !important;
     }
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
+    @media screen and (min-width: 768px) and (max-width: 1025px) {
       transform: scale(0.8) !important;
     }
     width: 70vw;
@@ -318,7 +318,7 @@
 }
 
 .code {
-  margin-top: 10vw;
+  margin-top: 4vw;
   text-align: center;
 
   .scan {
@@ -337,6 +337,17 @@
 }
 </style>
 
+<style lang='scss' type='stylesheet/scss'>
+.qr-code {
+  width: 60vw !important;
+  margin-top: 5vh;
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
+    margin-top: 0 !important;
+    width: 50vw !important;
+  }
+}
+</style>
+
 <template>
   <div class="game">
     <transition name="move-down">
@@ -346,7 +357,7 @@
       </div>
     </transition>
 
-    <!-- <transition name="fade"> -->·
+    <!-- <transition name="fade"> -->
     <div class="queens-warpper"
          :style="{marginTop}">
       <div v-for="(item,index) in locationList">
@@ -424,7 +435,8 @@
 
         <div class="scan">{{$t('game.scan')}}</div>
         <vue-qr :text="urlLink"
-                :size="200"></vue-qr>
+                class="qr-code"
+                size="200"></vue-qr>
       </div>
     </transition>
 

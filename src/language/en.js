@@ -55,7 +55,7 @@ module.exports = {
   game: {
     chooseQueen: "Choose your Queen.",
     chooseSuccess: "Your Queen of Hearts has been selected!",
-    tap: "Tap to capture your Queen of Hearts. Four of a kind wins!",
+    tap: "<span style='font-size:3vw'>Tap to capture your Queen of Hearts.<br/> Four of a kind wins!</span>",
     congratulations: "Congratulations, you win!",
     scan:
       "Please use your mobile to scan the QR Code below and redeem your exclusive gift!"

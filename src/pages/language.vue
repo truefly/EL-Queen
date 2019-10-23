@@ -24,7 +24,7 @@
          class="button-border bg">English</div>
     <div @click="updateShowLanguage('zh')"
          class="button-border bg">中文</div>
-    <div @click="updateShowLanguage('zh')"
+    <div @click="updateShowLanguage('es')"
          class="button-border bg">Español</div>
   </div>
 </template>

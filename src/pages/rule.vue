@@ -33,7 +33,7 @@
 }
 
 .rule {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     padding: 16vw 11vw;
   }
   padding: 16vw 11vw;
@@ -59,7 +59,7 @@
   margin-top: 2vw;
 }
 .btn {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     margin-top: 4vw;
   }
   margin-top: 8vw;

@@ -7,10 +7,27 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.refresh {
+  position: fixed;
+  top: 4vw;
+  right: 4vw;
+  width: 7vw;
+  height: 7vw;
+  z-index: 999;
+  background: white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 1vw;
+}
 </style>
 
 <template>
   <div @click="timeout">
+
+    <img src="../assets/refresh.png"
+         @click="restart"
+         v-if="pageIndex!==0"
+         class="refresh">
     <pre-loading :imgs="imgs"></pre-loading>
     <strip></strip>
     <div class="container">
@@ -75,6 +92,10 @@ export default {
     };
   },
   methods: {
+    restart() {
+      this.pageIndex = 0;
+      this.timeout();
+    },
     dumpIndex(index) {
       this.pageIndex = index;
     },

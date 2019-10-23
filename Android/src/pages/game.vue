@@ -649,8 +649,8 @@ export default {
           //   // offline
           setTimeout(() => {
             this.endGame = true;
-
-            this.urlLink = `https://www.rfisystem.com/holidaygame/?region=AM&device=Meitu&network=0&code=${code}&channel=&language=${localStorage.getItem("language")}#/success`;
+            
+            this.urlLink = `https://www.rfisystem.com/EsteeLauderHoliday/?region=AM&device=iPad&network=0&code=${code}&channel=&language=${localStorage.getItem("language")}#/success`;
 
             this.showCode = true;
           }, 1800);

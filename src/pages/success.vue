@@ -49,7 +49,7 @@
 }
 
 .content {
-  width: 75vw;
+  width: 80vw;
   margin: 0 auto;
   margin-top: 4vh;
 }

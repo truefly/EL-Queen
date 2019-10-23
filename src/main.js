@@ -14,33 +14,39 @@ import VueI18n from "vue-i18n";
 Vue.use(VueI18n);
 
 Vue.prototype.$startGame = () => {
-  axios.post("https://www.rfisystem.com/holidaygame/interface/GameStart.php", {
-    userId: gaUserID,
-    channel: gaChannel,
-    region: gaRegion,
-    language: localStorage.getItem("language") || "en",
-    device: gaDevice,
-    network: gaNetwork
-  });
+  axios.post(
+    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameStart.php",
+    {
+      userId: gaUserID,
+      channel: gaChannel,
+      region: gaRegion,
+      language: localStorage.getItem("language") || "en",
+      device: gaDevice,
+      network: gaNetwork
+    }
+  );
 };
 
 Vue.prototype.$endGame = code => {
-  axios.post("https://www.rfisystem.com/holidaygame/interface/GameOver.php", {
-    userId: gaUserID,
-    channel: gaChannel,
-    region: gaRegion,
-    language: localStorage.getItem("language") || "en",
-    device: gaDevice,
-    network: gaNetwork,
-    code: code,
-    status: 1
-  });
+  axios.post(
+    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameOver.php",
+    {
+      userId: gaUserID,
+      channel: gaChannel,
+      region: gaRegion,
+      language: localStorage.getItem("language") || "en",
+      device: gaDevice,
+      network: gaNetwork,
+      code: code,
+      status: 1
+    }
+  );
 };
 
 Vue.prototype.$conversion = code => {
   return new Promise(async (resolve, reject) => {
     let res = await axios.post(
-      "https://www.rfisystem.com/holidaygame/interface/Conversion.php",
+      "https://www.rfisystem.com/EsteeLauderHoliday/interface/Conversion.php",
       {
         userId: gaUserID,
         channel: gaChannel,
@@ -80,7 +86,7 @@ function setWechatShareText(wechatShareText) {
 Vue.prototype.$share = (title, desc) => {
   axios
     .get(
-      "https://www.rfisystem.com/holidaygame/interface/Cross.php?url=" +
+      "https://www.rfisystem.com/EsteeLauderHoliday/interface/Cross.php?url=" +
         encodeURIComponent(window.location.href.split("#")[0])
     )
     .then(data => {
@@ -100,7 +106,7 @@ Vue.prototype.$share = (title, desc) => {
           title: title,
           desc: desc,
           link: data.url,
-          imgUrl: "https://www.rfisystem.com/holidaygame/share.jpg"
+          imgUrl: "https://www.rfisystem.com/EsteeLauderHoliday/share.jpg"
         };
 
         setWechatShareText(wechatShareText);
@@ -112,7 +118,8 @@ const i18n = new VueI18n({
   locale: "zh", // 语言标识
   messages: {
     zh: require("./language/zh"),
-    en: require("./language/en")
+    en: require("./language/en"),
+    es: require("./language/es")
   }
 });
 
