@@ -437,7 +437,7 @@
         <!-- <vue-qr :text="urlLink"
                 class="qr-code"
         size="200"></vue-qr>-->
-        <div id="qrcode"></div>
+        <div id="qrcode" style="display: inline-block; margin: 3vh auto;"></div>
       </div>
     </transition>
 
