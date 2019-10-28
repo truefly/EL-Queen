@@ -7,10 +7,28 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.refresh {
+  padding: 1vw;
+  position: fixed;
+  top: 4vw;
+  right: 4vw;
+  width: 5vw;
+  height: 5vw;
+  z-index: 999;
+  background: white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 1vw;
+}
 </style>
 
 <template>
   <div @click="timeout">
+
+    <img src="../assets/refresh.png"
+         @click="restart"
+         v-if="pageIndex!==0"
+         class="refresh">
     <pre-loading :imgs="imgs"></pre-loading>
     <strip></strip>
     <div class="container">
@@ -27,6 +45,7 @@
 
       <transition name="fade">
         <game v-if="pageIndex===2"
+              @restart="restart"
               @dumpIndex="dumpIndex"></game>
       </transition>
 
@@ -52,8 +71,7 @@ export default {
       pageIndex: 0,
       timeoutFunc: null,
       imgs: [
-        require("../assets/360-o.gif"),
-        require("../assets/720-o.gif"),
+        require("../assets/1080-o.gif"),
         require("../assets/btn-border.png"),
         require("../assets/btn.png"),
         require("../assets/building.png"),
@@ -75,6 +93,10 @@ export default {
     };
   },
   methods: {
+    restart() {
+      this.pageIndex = 0;
+      this.timeout();
+    },
     dumpIndex(index) {
       this.pageIndex = index;
     },

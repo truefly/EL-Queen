@@ -1,3 +1,6 @@
+<style lang='scss' type='stylesheet/scss' scoped>
+</style>
+
 <template>
   <div id="app">
     <router-view />
@@ -25,6 +28,8 @@ export default {
 
     let title = this.$t("title");
     document.title = title;
+    let desc = this.$t("desc");
+    this.$share(title, desc);
   }
 };
 </script>
@@ -64,7 +69,7 @@ export default {
 }
 
 .p {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     margin: 2vw 0;
   }
   margin: 4.5vw 0;
@@ -73,11 +78,16 @@ export default {
     line-height: 6vw;
     color: #221e1f;
     text-align: left;
+    &.big {
+      font-size: 5vw;
+      line-height: 1.5;
+      text-align: center;
+    }
     &.small {
       font-size: 3vw;
       line-height: 4.5vw;
     }
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
+    @media screen and (min-width: 768px) and (max-width: 1025px) {
       font-size: 3vw;
       line-height: 4.5vw;
       &.small {

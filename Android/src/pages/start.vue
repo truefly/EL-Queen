@@ -21,7 +21,7 @@
 
 .home {
   font-size: 0;
-  background-image: url("../assets/720-o.gif");
+  background-image: url("../assets/1080-o.gif");
   background-size: cover;
   height: 100vh;
 

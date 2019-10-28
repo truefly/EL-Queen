@@ -33,14 +33,17 @@
 }
 
 .rule {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     padding: 16vw 11vw;
   }
   padding: 16vw 11vw;
   box-sizing: border-box;
   text-align: center;
   height: 100vh;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .campaign {
     font-size: 5vw;
     color: #221e1f;
@@ -59,10 +62,16 @@
   margin-top: 2vw;
 }
 .btn {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     margin-top: 4vw;
   }
   margin-top: 8vw;
+}
+
+.title {
+  font-size: 6vw;
+  margin-bottom: 4vw;
+  color: #333;
 }
 </style>
 
@@ -70,10 +79,11 @@
   <div @click="showDetail=false">
     <div class="rule">
       <transition name="move-down">
-        <div class="head-box"
-             v-if="show">
-          <span>{{$t('rule.title')}}</span>
-        </div>
+        <!-- <div class="head-box"
+              v-if="show"> -->
+        <span class="title"
+              v-if="show">{{$t('rule.title')}}</span>
+        <!-- </div> -->
       </transition>
       <transition name="fade">
         <div v-if="show">

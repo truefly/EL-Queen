@@ -49,7 +49,7 @@
 }
 
 .content {
-  width: 75vw;
+  width: 80vw;
   margin: 0 auto;
   margin-top: 4vh;
 }
@@ -78,7 +78,7 @@
         </div>
       </transition>
 
-      <!-- 
+      <!--
       <transition name="move">
         <div v-show="show">
           <div class="btn"
@@ -112,16 +112,12 @@ export default {
   },
   mounted() {
     this.show = true;
-    postGtag("enterRedemptionPage");
   },
   methods: {
     showDetails() {
-      postGtag("gameTermsButtonClicked");
       this.showDetail = true;
     },
     async handlerConfirm() {
-      postGtag("redemptionButtonClicked");
-
       let res = await this.$conversion(YSLDcode);
 
       switch (+res.data.status) {
@@ -135,12 +131,6 @@ export default {
           this.title = this.$t("success.used");
       }
       this.confirmed = true;
-
-      console.log(res);
-
-      setTimeout(() => {
-        postGtag("RedemptionSuccessfully");
-      }, 10000);
     }
   }
 };
