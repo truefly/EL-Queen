@@ -23,20 +23,20 @@ module.exports = {
     title: "Game Terms",
     content: `
       <div class='p'><div class='line'>
-      Save your QR code to redeem your gift. 
+      Save your QR code to redeem your gift.
       </div></div>
-    
+
       <div class='p'><div class='line'>
       Limit one per person while supplies last. Gifts are first come, first serve and may vary by location.
       </div></div>
-    
+
       <div class='p'><div class='line small'>
-      *Estée Lauder Travel Retail reserves the final right for this campaign.    
+      *Estée Lauder Travel Retail reserves the final right for this campaign.
       </div></div>
     `
   },
   game: {
-    chooseQueen: "Choose your Queen.",
+    chooseQueen: "Choose your Queen",
     chooseSuccess: "Your Queen of Hearts has been selected!",
     tap:
       "Tap your Queen of Hearts<br/>Four of a kind wins!",
@@ -69,19 +69,19 @@ module.exports = {
     content: `
     <div class='p'>
       <div class='line'>
-        Congratulations, you've caught four of a kind! 
+        Congratulations, you've caught four of a kind!
       </div>
     </div>
 
     <div class='p'>
       <div class='line'>
-        You win an exclusive Estée Lauder sample*! 
+        You win an exclusive Estée Lauder sample*!
       </div>
     </div>
 
     <div class='p'>
       <div class='line'>
-        Ask a Beauty Advisor for your prize and to learn more about our Holiday looks. 
+        Ask a Beauty Advisor for your prize and to learn more about our Holiday looks.
       </div>
     </div>
 

@@ -1,0 +1,213 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><script>function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          return pair[1];
+        }
+      }
+      return false;
+    }
+
+    function randomString(randomFlag, min, max) {
+      var str = "",
+        range = min,
+        arr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+          "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
+          "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        ];
+
+      // 随机产生
+      if (randomFlag) {
+        range = Math.round(Math.random() * (max - min)) + min;
+      }
+      for (var i = 0; i < range; i++) {
+        var pos = Math.round(Math.random() * (arr.length - 1));
+        str += arr[pos];
+      }
+      return str;
+    }
+
+    console.log(getQueryVariable("region"));
+
+    // let query = router.app._route.query;
+
+    var gaRegion = "AM",
+      gaNetwork = "0", // 0 为离线， 1 为在线
+      gaChannel = getQueryVariable("channel") || "",
+      gaDevice = "Meitu",
+      gaUserID,
+      YSLDcode = getQueryVariable("code") || "",
+      gaSiteName = "YSLD_QUEEN";
+
+    if (getQueryVariable("language")) {
+      localStorage.setItem("language", getQueryVariable("language"));
+    }
+
+    // if (getQueryVariable("userid")) {
+    //   localStorage.setItem("YS_USER", getQueryVariable("userid"));
+    // }
+
+    if (localStorage.getItem("YS_USER")) {
+      gaUserID = localStorage.getItem("YS_USER");
+    } else {
+      gaUserID = randomString(false, 16);
+      localStorage.setItem("YS_USER", gaUserID);
+    }
+
+    console.log("code:" + getQueryVariable("code"));
+    console.log("gaRegion:" + gaRegion);
+    console.log("gaNetwork:" + gaNetwork);
+    console.log("gaChannel:" + gaChannel);
+    console.log("gaDevice:" + gaDevice);
+    console.log("gaUserID:" + gaUserID);
+    console.log("language:" + localStorage.getItem("language") || "en");</script><title>玩味雅诗兰黛掠心假日</title><style>body,
+    html {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      -o-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    * {
+      font-family: "Optima" !important;
+    }
+
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    /* HTML5 display-role reset for older browsers */
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+      display: block;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    ol,
+    ul {
+      list-style: none;
+    }
+
+    blockquote,
+    q {
+      quotes: none;
+    }
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+      content: "";
+      content: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }</style><link href=./static/css/app.b1bdd676e5ee35d66e61177add67eabe.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.fbd53eb828a3cc6aa9de.js></script><script type=text/javascript src=./static/js/app.92498ee914eb2c5c5eda.js></script></body></html>
