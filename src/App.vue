@@ -12,8 +12,6 @@ import axios from "axios";
 export default {
   name: "App",
   created() {
-    console.log(this.$route.path);
-
     let localLanguage = window.localStorage.getItem("language");
     var lan =
       localStorage.getItem("language") ||
@@ -80,6 +78,11 @@ export default {
     line-height: 6vw;
     color: #221e1f;
     text-align: left;
+    &.big {
+      font-size: 5vw;
+      line-height: 1.5;
+      text-align: center;
+    }
     &.small {
       font-size: 3vw;
       line-height: 4.5vw;

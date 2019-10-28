@@ -53,12 +53,29 @@
   margin: 0 auto;
   margin-top: 4vh;
 }
+
+.refresh {
+  padding: 1vw;
+  position: fixed;
+  top: 4vw;
+  right: 4vw;
+  width: 5vw;
+  height: 5vw;
+  z-index: 999;
+  background: white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 1vw;
+}
 </style>
 
 <template>
   <div class="success"
        @click="showDetail=false">
     <strip height="80px"></strip>
+
+    <img src="../assets/refresh.png"
+         @click="restart"
+         class="refresh">
 
     <div class="success-content">
 
@@ -114,6 +131,12 @@ export default {
     postGtag("enterRedemptionPage");
   },
   methods: {
+    restart() {
+      window.location.replace(
+        window.location.href.split("/?")[0] +
+          `/?device=mobile&channel=${gaChannel}&region=${gaRegion}&network=1`
+      );
+    },
     showDetails() {
       postGtag("gameTermsButtonClicked");
       this.showDetail = true;
@@ -134,8 +157,6 @@ export default {
           this.title = this.$t("success.used");
       }
       this.confirmed = true;
-
-      console.log(res);
 
       setTimeout(() => {
         postGtag("RedemptionSuccessfully");

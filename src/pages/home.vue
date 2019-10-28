@@ -9,11 +9,12 @@
 }
 
 .refresh {
+  padding: 1vw;
   position: fixed;
   top: 4vw;
   right: 4vw;
-  width: 7vw;
-  height: 7vw;
+  width: 5vw;
+  height: 5vw;
   z-index: 999;
   background: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
@@ -44,6 +45,7 @@
 
       <transition name="fade">
         <game v-if="pageIndex===2"
+              @restart="restart"
               @dumpIndex="dumpIndex"></game>
       </transition>
 

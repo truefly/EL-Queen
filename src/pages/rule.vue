@@ -40,7 +40,10 @@
   box-sizing: border-box;
   text-align: center;
   height: 100vh;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .campaign {
     font-size: 5vw;
     color: #221e1f;
@@ -64,16 +67,23 @@
   }
   margin-top: 8vw;
 }
+
+.title {
+  font-size: 6vw;
+  margin-bottom: 4vw;
+  color: #333;
+}
 </style>
 
 <template>
   <div @click="showDetail=false">
     <div class="rule">
       <transition name="move-down">
-        <div class="head-box"
-             v-if="show">
-          <span>{{$t('rule.title')}}</span>
-        </div>
+        <!-- <div class="head-box"
+              v-if="show"> -->
+        <span class="title"
+              v-if="show">{{$t('rule.title')}}</span>
+        <!-- </div> -->
       </transition>
       <transition name="fade">
         <div v-if="show">

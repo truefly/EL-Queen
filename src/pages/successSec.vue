@@ -136,8 +136,6 @@ export default {
       }
       this.confirmed = true;
 
-      console.log(res);
-
       setTimeout(() => {
         postGtag("RedemptionSuccessfully");
       }, 10000);

@@ -160,12 +160,12 @@
   position: fixed;
   // transition: all 0.4s ease;
   z-index: 10;
-  bottom: 29vw;
+  bottom: 24vw;
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     top: 24vw;
   }
   // bottom: 30.7vw;
-  top: 32vw;
+  top: 24vw;
   left: 5vw;
   width: 90vw;
 
@@ -179,8 +179,10 @@
       transform: scale(1.3) !important;
     }
     @media screen and (min-width: 768px) and (max-width: 1025px) {
-      transform: scale(0.8) !important;
+      transform: scale(1.03) !important;
     }
+    transform: scale(1.2) !important;
+
     width: 70vw;
     height: 80vw;
     background-image: url("../assets/building.png");
@@ -211,12 +213,15 @@
 }
 
 .bottom {
-  height: 29vw;
+  height: 24vw;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
+  @media screen and (width: 375px) and (min-height: 680px) {
+    height: 30vw;
+  }
   background: linear-gradient(
     -45deg,
     #dbcba6 0%,
@@ -229,7 +234,7 @@
     width: 36vw;
     margin: 0 auto;
     display: block;
-    margin-top: 3vw;
+    margin-top: 2vw;
   }
 
   .queen-card-warpper {
@@ -238,19 +243,19 @@
     padding-top: 1vw;
     .one-queen {
       flex: 1;
-      width: 12vw;
-      height: 18vw;
+      width: 10vw;
+      height: 15vw;
       .empty-queen {
         background-image: url("../assets/empty-card.png");
-        width: 12vw;
-        height: 18vw;
+        width: 10vw;
+        height: 15vw;
         background-size: 100% 100%;
         margin: 0 auto;
       }
 
       .current-queen {
-        width: 12vw;
-        height: 18vw;
+        width: 10vw;
+        height: 15vw;
         position: fixed;
         bottom: 48vh;
         left: 42vw;
@@ -258,8 +263,8 @@
         transform: scale(3);
 
         .queen-warpper {
-          width: 12vw;
-          height: 18vw;
+          width: 10vw;
+          height: 15vw;
           background-image: url("../assets/queen-box.png");
           background-size: 100% 100%;
           background-repeat: no-repeat;
@@ -329,6 +334,8 @@
 }
 
 .head-box {
+  width: 75vw;
+  height: 18vw;
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     // transform: scale(0.7);
     width: 65vw;
@@ -353,7 +360,8 @@
     <transition name="move-down">
       <div class="head-box"
            v-show="show">
-        <span v-html="$t(title)"></span>
+        <span style="font-size:3.5vw"
+              v-html="$t(title)"></span>
       </div>
     </transition>
 
@@ -610,7 +618,7 @@ export default {
 
       if (this.errorLength === this.targetList.length) {
         setTimeout(() => {
-          location.reload();
+          this.$emit("restart");
         }, 3000);
       }
     },
@@ -654,11 +662,11 @@ export default {
           let code = randomString(false, 32);
           this.$endGame(code);
 
-          if (+gaNetwork === 0 && gaDevice === "mobile") {
-            setTimeout(() => {
-              window.location.replace(window.location.href + "success-sec");
-            }, 1800);
-          }
+          // if (+gaNetwork === 0 && gaDevice === "mobile") {
+          //   setTimeout(() => {
+          //     window.location.replace(window.location.href + "success-sec");
+          //   }, 1800);
+          // }
 
           if (gaDevice !== "mobile") {
             // offline

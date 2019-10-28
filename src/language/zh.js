@@ -9,23 +9,14 @@ module.exports = {
   rule: {
     title: "游戏规则",
     content: `
-      <div class='p'><div class='line'>
-      1. 选择心仪的红心皇后
+      <div class='p'><div class='line big'>
+        1. 选择心仪的红心皇后
       </div></div>
-      <div class='p'><div class='line'>
-      2. 游戏开始后，点击捕捉您选择的皇后卡牌
+      <div class='p'><div class='line big'>
+        2. 游戏开始后，点击捕捉您选择的皇后卡牌
       </div></div>
-      <div class='p'><div class='line'>
-      3. 成功集齐4位皇后卡牌后，挑战成功！
-      </div></div>
-      <div class='p'><div class='line'>
-      4. 根据屏幕提示，前往雅诗兰黛免税专柜领取假日专属礼赠
-      </div></div>
-      <div class='p'><div class='line small' >
-      *数量有限，赠完即止
-      </div>
-      <div class='line small' >
-      *雅诗兰黛旅游零售保留对本次活动的最终解释权
+      <div class='p'><div class='line big'>
+        3. 四次正确，挑战成功！
       </div></div>
     `,
     start: "开始游戏",
@@ -34,15 +25,6 @@ module.exports = {
   terms: {
     title: "礼赠细则",
     content: `
-      <div class='p'>
-        <div class='line'>
-          雅诗兰黛免税礼遇内含：
-        </div>
-        <div class='line'>
-        （产品名称&规格）
-        </div>
-      </div>
-    
       <div class='p'><div class='line'>
         兑换页面将作为礼物兑换的唯一凭证；
       </div></div>
@@ -59,7 +41,7 @@ module.exports = {
   game: {
     chooseQueen: "选择心仪的红心皇后",
     chooseSuccess: "选择成功！",
-    tap: "点击捕捉你所挑选的红心皇后，<br/>四次正确即挑战成功！",
+    tap: "点击你所挑选的红心皇后，<br/>四次正确即挑战成功！",
     congratulations: "恭喜挑战成功！",
     scan: "请使用手机扫描下方二维码，领取假日专属礼赠！"
   },

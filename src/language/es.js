@@ -1,6 +1,7 @@
 module.exports = {
   title: "Jugar para ganar regalo de tu Estée Lauder Holiday",
-  desc: "Junta cuatro Reinas de Corazones idénticas para ganar una muestra GRATIS de Estée Lauder",
+  desc:
+    "Junta cuatro Reinas de Corazones idénticas para ganar una muestra GRATIS de Estée Lauder",
   language: "西班牙语",
   start: {
     head:
@@ -10,17 +11,11 @@ module.exports = {
   rule: {
     title: "Reglas del juego",
     content: `
-      <div class='p'><div class='line'>
-      ¡Elige tu Reina de Corazones y no la pierdas de vista!</div></div>
-      <div class='p'><div class='line'>
-        Las cuatro reinas aparecerán al azar en las ventanas de la mansión. Los jugadores deben juntar cuatro cartas con su Reina de Corazones para ganar.
+      <div class='p'><div class='line big'>
+      ¡Elige tu Reina de Corazones y no la pierdas de vista! </div></div>
+      <div class='p'><div class='line big'>
+      Los jugadores deben juntar cuatro cartas con su Reina de Corazones para ganar.
       </div></div>
-      <div class='p'><div class='line'>
-        Limitado a uno por persona. Los regalos solo se pueden canjear en las sucursales participantes de Estée Lauder Travel Retail hasta agotar existencias. 
-      </div></div>
-      <div class='p'><div class='line small' >
-        *Estée Lauder Travel Retail se reserva el derecho final de esta campaña.
-      </div>
     `,
     start: "Iniciar juego",
     terms: "Condiciones del juego"
@@ -28,15 +23,6 @@ module.exports = {
   terms: {
     title: "Condiciones del juego",
     content: `
-      <div class='p'>
-        <div class='line'>
-          Las muestras de los esenciales de Estée Lauder para esta fiestas incluyen:
-        </div>
-        <div class='line'>
-          (Nombre y tamaño del producto)
-        </div>
-      </div>
-    
       <div class='p'><div class='line'>
         Guarda tu código QR para canjear tu regalo. 
       </div></div>
@@ -54,7 +40,7 @@ module.exports = {
     chooseQueen: "Elige a tu Reina.",
     chooseSuccess: "¡Tu Reina de Corazones ha sido seleccionada!",
     tap:
-      "<span style='font-size:3vw'>Toca tu Reina de Corazones para juntarla.<br/>¡Ganas juntando cuatro iguales!</span>",
+      "Toca tu Reina de Corazones para juntarla.<br/>¡Ganas juntando cuatro iguales!",
     congratulations: "Felicidades, ¡ganaste!",
     scan:
       "¡Usa tu teléfono para escanear este código QR y canjear tu regalo exclusivo!"

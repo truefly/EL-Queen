@@ -16,7 +16,6 @@
 </style>
 
 <template>
-
   <div class="language"
        @click.stop
        v-show="showLanguage">

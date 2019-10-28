@@ -11,7 +11,9 @@ hoo<!--  -->
   .queen-warpper {
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/queen-box.png");
+    &.background {
+      background-image: url("../../assets/queen-box.png");
+    }
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: absolute;
@@ -48,7 +50,7 @@ hoo<!--  -->
 <template>
   <div class="queens-warpper1">
     <div class="wrong"></div>
-    <div :class="locationList[showIndex]"
+    <div :class="`${locationList[showIndex]} ${showIndex<8?'background':'none'} `"
          :id="`queen-card-${index}`"
          @click="clickItem"
          class="queen-warpper">
@@ -64,8 +66,20 @@ export default {
   props: ["index", "queenIndex", "endGame", "card"],
   data() {
     return {
-      locationList: ["left-top", "right-top", "left-bottom", "right-bottom"],
-      showIndex: parseInt(Math.random() * 4),
+      locationList: [
+        "left-top",
+        "left-top",
+        "right-top",
+        "right-top",
+        "left-bottom",
+        "left-bottom",
+        "right-bottom",
+        "right-bottom",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      showIndex: parseInt(Math.random() * 11),
       timeOut: null,
       isWrong: false,
       tween: null,
@@ -76,8 +90,8 @@ export default {
     queenIndex: {
       immediate: true,
       handler(newVal) {
-        this.locationList[4] = this.locationList[newVal];
-        this.locationList[5] = this.locationList[newVal];
+        // this.locationList[4] = this.locationList[newVal];
+        // this.locationList[5] = this.locationList[newVal];
       }
     }
   },
@@ -99,7 +113,11 @@ export default {
       if (this.endGame) {
         return;
       }
-      if (+this.showIndex !== +this.queenIndex && this.showIndex <= 3) {
+
+      if (
+        this.locationList[+this.showIndex] !==
+        this.locationList[+this.queenIndex * 2]
+      ) {
         this.isWrong = true;
         this.tween.pause();
 
@@ -148,7 +166,7 @@ export default {
     begin() {
       this.disabled = false;
       clearTimeout(this.timeOut);
-      this.showIndex = parseInt(Math.random() * 6);
+      this.showIndex = parseInt(Math.random() * this.locationList.length);
       let index = this.index;
       let time = Math.random() * 1000;
       let speed = 2 + Math.random() * 8;
