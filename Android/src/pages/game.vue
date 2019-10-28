@@ -434,7 +434,8 @@
     <transition name="fade">
       <div class="code" v-show="showCode">
         <div class="scan">{{$t('game.scan')}}</div>
-        <vue-qr :text="urlLink" class="qr-code" size="200"></vue-qr>
+        <!-- <vue-qr :text="urlLink" class="qr-code" size="200"></vue-qr> -->
+        <div id="qrcode" style="display: inline-block; margin: 3vh auto;"></div>
       </div>
     </transition>
 
@@ -462,6 +463,7 @@
 import strip from "./components/strip";
 import card from "./components/card";
 import { TweenMax, Power2, TimelineLite } from "gsap/TweenMax";
+import QRCode from "qrcodejs2";
 import VueQr from "vue-qr";
 
 const queenFirstMoveSpeed = 0.6;
@@ -652,6 +654,7 @@ export default {
               this.urlLink = `https://www.rfisystem.com/EsteeLauderHoliday/?region=AM&device=Meitu&network=0&code=${code}&channel=&language=${localStorage.getItem(
                 "language"
               )}#/success`;
+              this.qrcode();
               this.showCode = true;
             }, 1800);
           } else {
@@ -895,6 +898,15 @@ export default {
     },
     dumpNext() {
       this.$router.push("/success");
+    },
+    qrcode() {
+      let qrcode = new QRCode("qrcode", {
+        width: 200,
+        height: 200,
+        text: this.urlLink, // 二维码地址
+        colorDark: "#000",
+        colorLight: "#fff"
+      });
     }
   }
 };
