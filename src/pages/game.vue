@@ -358,33 +358,37 @@
 <template>
   <div class="game">
     <transition name="move-down">
-      <div class="head-box" v-show="show">
-        <span style="font-size:3.5vw" v-html="$t(title)"></span>
+      <div class="head-box"
+           v-show="show">
+        <span style="font-size:3.5vw"
+              v-html="$t(title)"></span>
       </div>
     </transition>
 
     <!-- <transition name="fade"> -->
-    <div class="queens-warpper" :style="{marginTop}">
+    <div class="queens-warpper"
+         :style="{marginTop}">
       <div v-for="(item,index) in locationList">
         <transition :name="`move-${index%2===0?'left':'right'}`">
-          <div
-            :id="item"
-            @click="chooseQueen(item,index)"
-            :class="`${item}`"
-            :style="queenIndex===index?'z-index:6':''"
-            v-if="show&&(!hideOther||queenIndex===index)"
-            class="queen-warpper"
-          >
+          <div :id="item"
+               @click="chooseQueen(item,index)"
+               :class="`${item}`"
+               :style="queenIndex===index?'z-index:6':''"
+               v-if="show&&(!hideOther||queenIndex===index)"
+               class="queen-warpper">
             <div id="queens-bg">
               <div class="queens-bg"></div>
               <transition name="fade">
                 <div v-show="queenIndex===index&&!hideBg">
-                  <img class="front heart" src="../assets/heart.png" />
-                  <img class="back heart" src="../assets/heart.png" />
+                  <img class="front heart"
+                       src="../assets/heart.png" />
+                  <img class="back heart"
+                       src="../assets/heart.png" />
                 </div>
               </transition>
             </div>
-            <img :src="require('../assets/'+item+'.png')" class="queen" />
+            <img :src="require('../assets/'+item+'.png')"
+                 class="queen" />
           </div>
         </transition>
       </div>
@@ -392,70 +396,80 @@
     <!-- </transition> -->
 
     <transition name="fade">
-      <div class="buildings" id="buildings" v-if="!endGame" @click="begin">
+      <div class="buildings"
+           id="buildings"
+           v-if="!endGame"
+           @click="begin">
         <!-- v-if="firstEnd&&!showCode" -->
         <!-- :style="scale?'transform: scale(1);':'transform: scale(5)'" -->
-        <div class="building" id="building">
-          <div
-            class="choose-item"
-            :id="`choose-item-${index}`"
-            v-if="beginGame"
-            v-for="(item,index) in targetList"
-            :style="{
+        <div class="building"
+             id="building">
+          <div class="choose-item"
+               :id="`choose-item-${index}`"
+               v-if="beginGame"
+               v-for="(item,index) in targetList"
+               :style="{
                  left:item.left*ratio+'px',
                  top:item.top*ratio+'px',
                  width:item.width*ratio+'px',
-                 height:item.height*ratio+'px'}"
-          >
-            <div
-              class="bg"
-              :id="`choose-bg-${index}`"
-              :style="{
+                 height:item.height*ratio+'px'}">
+            <div class="bg"
+                 :id="`choose-bg-${index}`"
+                 :style="{
                    left:-15*ratio+'px',
                    top:-15*ratio+'px',
                    bottom:-15*ratio+'px',
                    right:-15*ratio+'px',
                    opacity:0
-                   }"
-            ></div>
-            <card
-              :index="index"
-              :item="item"
-              @error="error"
-              @current="current"
-              :endGame="endGame"
-              :queenIndex="queenIndex"
-            ></card>
+                   }"></div>
+            <card :index="index"
+                  :item="item"
+                  @error="error"
+                  @current="current"
+                  :endGame="endGame"
+                  :queenIndex="queenIndex"></card>
           </div>
         </div>
       </div>
     </transition>
 
     <transition name="fade">
-      <div class="code" v-show="showCode">
+      <div class="code"
+           v-show="showCode">
         <div class="scan">{{$t('game.scan')}}</div>
         <!-- <vue-qr :text="urlLink"
                 class="qr-code"
         size="200"></vue-qr>-->
-        <div id="qrcode" style="display: inline-block; margin: 3vh auto;"></div>
+        <div id="qrcode"
+             style="display: inline-block; margin: 3vh auto;"></div>
       </div>
     </transition>
 
     <transition name="fade">
-      <div class="bottom" v-show="beginGame">
+      <div class="bottom"
+           v-show="beginGame">
         <div class="queen-card-warpper">
-          <div v-for="(item,index) in selectedQueen" class="one-queen">
-            <div class="current-queen" :id="`select-queen-${index}`" v-if="item">
-              <div :class="locationList[queenIndex]" class="queen-warpper">
-                <img class="front heart" src="../assets/heart.png" />
-                <img class="back heart" src="../assets/heart.png" />
-                <img :src="require('../assets/'+locationList[queenIndex]+'.png')" class="queen" />
+          <div v-for="(item,index) in selectedQueen"
+               class="one-queen">
+            <div class="current-queen"
+                 :id="`select-queen-${index}`"
+                 v-if="item">
+              <div :class="locationList[queenIndex]"
+                   class="queen-warpper">
+                <img class="front heart"
+                     src="../assets/heart.png" />
+                <img class="back heart"
+                     src="../assets/heart.png" />
+                <img :src="require('../assets/'+locationList[queenIndex]+'.png')"
+                     class="queen" />
               </div>
             </div>
-            <div class="empty-queen" :id="`empty-queen-${index}`"></div>
+            <div class="empty-queen"
+                 :id="`empty-queen-${index}`"></div>
           </div>
         </div>
-        <img src="../assets/text.png" class="text-png" />
+        <img src="../assets/text.png"
+             class="text-png" />
       </div>
     </transition>
   </div>
@@ -473,6 +487,8 @@ export default {
   components: { strip, card, VueQr },
   data() {
     return {
+      // 提交的多次点击
+      isSuccess: false,
       urlLink: "",
       hideBg: false,
       show: false,
@@ -606,6 +622,9 @@ export default {
       }
     },
     current() {
+      if (this.isSuccess) {
+        return;
+      }
       let idx;
       this.selectedQueen.find((e, index) => {
         idx = index;
@@ -640,6 +659,7 @@ export default {
         let l = this.selectedQueen.filter(e => e).length === 4;
 
         if (l) {
+          this.isSuccess = true;
           postGtag("gameSuccessfully");
 
           let code = randomString(false, 32);
