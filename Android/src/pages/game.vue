@@ -46,7 +46,7 @@
 }
 
 .queens-warpper {
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
     transform: translateY(-50%) scale(0.8);
     transform-origin: top;
   }
@@ -160,12 +160,12 @@
   position: fixed;
   // transition: all 0.4s ease;
   z-index: 10;
-  bottom: 29vw;
+  bottom: 24vw;
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     top: 24vw;
   }
   // bottom: 30.7vw;
-  top: 32vw;
+  top: 24vw;
   left: 5vw;
   width: 90vw;
 
@@ -178,9 +178,11 @@
     @media screen and (min-height: 630px) {
       transform: scale(1.3) !important;
     }
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
-      transform: scale(0.8) !important;
+    @media screen and (min-width: 768px) and (max-width: 1025px) {
+      transform: scale(1.03) !important;
     }
+    transform: scale(1.2) !important;
+
     width: 70vw;
     height: 80vw;
     background-image: url("../assets/building.png");
@@ -211,12 +213,15 @@
 }
 
 .bottom {
-  height: 29vw;
+  height: 24vw;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
+  @media screen and (width: 375px) and (min-height: 680px) {
+    height: 30vw;
+  }
   background: linear-gradient(
     -45deg,
     #dbcba6 0%,
@@ -229,7 +234,7 @@
     width: 36vw;
     margin: 0 auto;
     display: block;
-    margin-top: 3vw;
+    margin-top: 2vw;
   }
 
   .queen-card-warpper {
@@ -238,19 +243,19 @@
     padding-top: 1vw;
     .one-queen {
       flex: 1;
-      width: 12vw;
-      height: 18vw;
+      width: 10vw;
+      height: 15vw;
       .empty-queen {
         background-image: url("../assets/empty-card.png");
-        width: 12vw;
-        height: 18vw;
+        width: 10vw;
+        height: 15vw;
         background-size: 100% 100%;
         margin: 0 auto;
       }
 
       .current-queen {
-        width: 12vw;
-        height: 18vw;
+        width: 10vw;
+        height: 15vw;
         position: fixed;
         bottom: 48vh;
         left: 42vw;
@@ -258,8 +263,8 @@
         transform: scale(3);
 
         .queen-warpper {
-          width: 12vw;
-          height: 18vw;
+          width: 10vw;
+          height: 15vw;
           background-image: url("../assets/queen-box.png");
           background-size: 100% 100%;
           background-repeat: no-repeat;
@@ -318,7 +323,7 @@
 }
 
 .code {
-  margin-top: 10vw;
+  margin-top: 4vw;
   text-align: center;
 
   .scan {
@@ -329,6 +334,8 @@
 }
 
 .head-box {
+  width: 75vw;
+  height: 18vw;
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     // transform: scale(0.7);
     width: 65vw;
@@ -337,125 +344,118 @@
 }
 </style>
 
+<style lang='scss' type='stylesheet/scss'>
+.qr-code {
+  width: 60vw !important;
+  margin-top: 5vh;
+  @media screen and (min-width: 768px) and (max-width: 1025px) {
+    margin-top: 0 !important;
+    width: 50vw !important;
+  }
+}
+</style>
+
 <template>
   <div class="game">
     <transition name="move-down">
-      <div class="head-box"
-           v-show="show">
-        <span v-html="$t(title)"></span>
+      <div class="head-box" v-show="show">
+        <span style="font-size:3.5vw" v-html="$t(title)"></span>
       </div>
     </transition>
 
-    <!-- <transition name="fade"> -->·
-    <div class="queens-warpper"
-         :style="{marginTop}">
+    <!-- <transition name="fade"> -->
+    <div class="queens-warpper" :style="{marginTop}">
       <div v-for="(item,index) in locationList">
         <transition :name="`move-${index%2===0?'left':'right'}`">
-          <div :id="item"
-               @click="chooseQueen(item,index)"
-               :class="`${item}`"
-               :style="queenIndex===index?'z-index:6':''"
-               v-if="show&&(!hideOther||queenIndex===index)"
-               class="queen-warpper">
-
+          <div
+            :id="item"
+            @click="chooseQueen(item,index)"
+            :class="`${item}`"
+            :style="queenIndex===index?'z-index:6':''"
+            v-if="show&&(!hideOther||queenIndex===index)"
+            class="queen-warpper"
+          >
             <div id="queens-bg">
               <div class="queens-bg"></div>
               <transition name="fade">
                 <div v-show="queenIndex===index&&!hideBg">
-                  <img class="front heart"
-                       src="../assets/heart.png">
-                  <img class="back heart"
-                       src="../assets/heart.png">
+                  <img class="front heart" src="../assets/heart.png" />
+                  <img class="back heart" src="../assets/heart.png" />
                 </div>
               </transition>
             </div>
-            <img :src="require('../assets/'+item+'.png')"
-                 class="queen">
+            <img :src="require('../assets/'+item+'.png')" class="queen" />
           </div>
         </transition>
       </div>
-
     </div>
     <!-- </transition> -->
 
     <transition name="fade">
-      <div class="buildings"
-           id="buildings"
-           v-if="!endGame"
-           @click="begin">
+      <div class="buildings" id="buildings" v-if="!endGame" @click="begin">
         <!-- v-if="firstEnd&&!showCode" -->
         <!-- :style="scale?'transform: scale(1);':'transform: scale(5)'" -->
-        <div class="building"
-             id="building">
-          <div class="choose-item"
-               :id="`choose-item-${index}`"
-               v-if="beginGame"
-               v-for="(item,index) in targetList"
-               :style="{
+        <div class="building" id="building">
+          <div
+            class="choose-item"
+            :id="`choose-item-${index}`"
+            v-if="beginGame"
+            v-for="(item,index) in targetList"
+            :style="{
                  left:item.left*ratio+'px',
                  top:item.top*ratio+'px',
                  width:item.width*ratio+'px',
-                 height:item.height*ratio+'px'}">
-
-            <div class="bg"
-                 :id="`choose-bg-${index}`"
-                 :style="{
+                 height:item.height*ratio+'px'}"
+          >
+            <div
+              class="bg"
+              :id="`choose-bg-${index}`"
+              :style="{
                    left:-15*ratio+'px',
                    top:-15*ratio+'px',
                    bottom:-15*ratio+'px',
                    right:-15*ratio+'px',
                    opacity:0
-                   }"></div>
-            <card :index="index"
-                  :item="item"
-                  @error="error"
-                  @current="current"
-                  :endGame="endGame"
-                  :queenIndex="queenIndex"></card>
+                   }"
+            ></div>
+            <card
+              :index="index"
+              :item="item"
+              @error="error"
+              @current="current"
+              :endGame="endGame"
+              :queenIndex="queenIndex"
+            ></card>
           </div>
         </div>
-
       </div>
     </transition>
 
     <transition name="fade">
-      <div class="code"
-           v-show="showCode">
-
+      <div class="code" v-show="showCode">
         <div class="scan">{{$t('game.scan')}}</div>
-        <vue-qr :text="urlLink"
-                :size="200"></vue-qr>
+        <!-- <vue-qr :text="urlLink" class="qr-code" size="200"></vue-qr> -->
+        <div id="qrcode" style="display: inline-block; margin: 3vh auto;"></div>
       </div>
     </transition>
 
     <transition name="fade">
-      <div class="bottom"
-           v-show="beginGame">
+      <div class="bottom" v-show="beginGame">
         <div class="queen-card-warpper">
-          <div v-for="(item,index) in selectedQueen"
-               class="one-queen">
-            <div class="current-queen"
-                 :id="`select-queen-${index}`"
-                 v-if="item">
-              <div :class="locationList[queenIndex]"
-                   class="queen-warpper">
-                <img class="front heart"
-                     src="../assets/heart.png">
-                <img class="back heart"
-                     src="../assets/heart.png">
-                <img :src="require('../assets/'+locationList[queenIndex]+'.png')"
-                     class="queen">
+          <div v-for="(item,index) in selectedQueen" class="one-queen">
+            <div class="current-queen" :id="`select-queen-${index}`" v-if="item">
+              <div :class="locationList[queenIndex]" class="queen-warpper">
+                <img class="front heart" src="../assets/heart.png" />
+                <img class="back heart" src="../assets/heart.png" />
+                <img :src="require('../assets/'+locationList[queenIndex]+'.png')" class="queen" />
               </div>
             </div>
-            <div class="empty-queen"
-                 :id="`empty-queen-${index}`"></div>
+            <div class="empty-queen" :id="`empty-queen-${index}`"></div>
           </div>
         </div>
-        <img src="../assets/text.png"
-             class="text-png">
+        <img src="../assets/text.png" class="text-png" />
       </div>
     </transition>
-
   </div>
 </template>
 
@@ -463,6 +463,7 @@
 import strip from "./components/strip";
 import card from "./components/card";
 import { TweenMax, Power2, TimelineLite } from "gsap/TweenMax";
+import QRCode from "qrcodejs2";
 import VueQr from "vue-qr";
 
 const queenFirstMoveSpeed = 0.6;
@@ -598,7 +599,7 @@ export default {
 
       if (this.errorLength === this.targetList.length) {
         setTimeout(() => {
-          location.reload();
+          this.$emit("restart");
         }, 3000);
       }
     },
@@ -638,6 +639,7 @@ export default {
 
         if (l) {
           let code = randomString(false, 32);
+          this.$endGame(code);
 
           // if (+gaNetwork === 0 && gaDevice === "mobile") {
           //   setTimeout(() => {
@@ -645,26 +647,27 @@ export default {
           //   }, 1800);
           // }
 
-          // if (gaDevice !== "mobile") {
-          //   // offline
-          setTimeout(() => {
-            this.endGame = true;
-            
-            this.urlLink = `https://www.rfisystem.com/EsteeLauderHoliday/?region=AM&device=iPad&network=0&code=${code}&channel=&language=${localStorage.getItem("language")}#/success`;
-
-            this.showCode = true;
-          }, 1800);
-          // } else {
-          //   // this.endGame = true;
-          //   setTimeout(() => {
-          //     this.title = this.$t("game.congratulations");
-          //     // this.showCode = true;
-          //     window.location.replace(
-          //       window.location.href.split("/?").join(`/?code=${code}&`) +
-          //         "success"
-          //     );
-          //   }, 1800);
-          // }
+          if (gaDevice !== "mobile") {
+            // offline
+            setTimeout(() => {
+              this.endGame = true;
+              this.urlLink = `https://www.rfisystem.com/EsteeLauderHoliday/?region=AM&device=Meitu&network=0&code=${code}&channel=&language=${localStorage.getItem(
+                "language"
+              )}#/success`;
+              this.qrcode();
+              this.showCode = true;
+            }, 1800);
+          } else {
+            // this.endGame = true;
+            setTimeout(() => {
+              this.title = this.$t("game.congratulations");
+              // this.showCode = true;
+              window.location.replace(
+                window.location.href.split("/?").join(`/?code=${code}&`) +
+                  "success"
+              );
+            }, 1800);
+          }
         }
       });
       // TweenMax();
@@ -685,6 +688,9 @@ export default {
       if (this.queenIndex !== -1) {
         return;
       }
+
+      this.$startGame();
+
       this.queenIndex = index;
       this.startAnimation(item);
     },
@@ -892,6 +898,15 @@ export default {
     },
     dumpNext() {
       this.$router.push("/success");
+    },
+    qrcode() {
+      let qrcode = new QRCode("qrcode", {
+        width: 200,
+        height: 200,
+        text: this.urlLink, // 二维码地址
+        colorDark: "#000",
+        colorLight: "#fff"
+      });
     }
   }
 };

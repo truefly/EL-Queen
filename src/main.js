@@ -15,8 +15,7 @@ Vue.use(VueI18n);
 
 Vue.prototype.$startGame = () => {
   axios.post(
-    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameStart.php",
-    {
+    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameStart.php", {
       userId: gaUserID,
       channel: gaChannel,
       region: gaRegion,
@@ -29,8 +28,7 @@ Vue.prototype.$startGame = () => {
 
 Vue.prototype.$endGame = code => {
   axios.post(
-    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameOver.php",
-    {
+    "https://www.rfisystem.com/EsteeLauderHoliday/interface/GameOver.php", {
       userId: gaUserID,
       channel: gaChannel,
       region: gaRegion,
@@ -46,8 +44,7 @@ Vue.prototype.$endGame = code => {
 Vue.prototype.$conversion = code => {
   return new Promise(async (resolve, reject) => {
     let res = await axios.post(
-      "https://www.rfisystem.com/EsteeLauderHoliday/interface/Conversion.php",
-      {
+      "https://www.rfisystem.com/EsteeLauderHoliday/interface/Conversion.php", {
         userId: gaUserID,
         channel: gaChannel,
         region: gaRegion,
@@ -63,14 +60,17 @@ Vue.prototype.$conversion = code => {
 };
 
 function setWechatShareText(wechatShareText) {
-  wx.ready(function() {
+  wx.ready(function () {
     //自定义微信分享内容功能
     wx.onMenuShareTimeline({
       title: wechatShareText.title,
       link: wechatShareText.link,
       imgUrl: wechatShareText.imgUrl,
-      success: function() {}
+      success: function () {
+        postGtag("wechatShared");
+      }
     });
+
     wx.onMenuShareAppMessage({
       title: wechatShareText.title,
       desc: wechatShareText.desc,
@@ -78,7 +78,9 @@ function setWechatShareText(wechatShareText) {
       imgUrl: wechatShareText.imgUrl,
       type: "",
       dataUrl: "",
-      success: function() {}
+      success: function () {
+        postGtag("wechatShared");
+      }
     });
   });
 }
@@ -87,7 +89,7 @@ Vue.prototype.$share = (title, desc) => {
   axios
     .get(
       "https://www.rfisystem.com/EsteeLauderHoliday/interface/Cross.php?url=" +
-        encodeURIComponent(window.location.href.split("#")[0])
+      encodeURIComponent(window.location.href.split("#")[0])
     )
     .then(data => {
       data = data.data;
@@ -101,7 +103,7 @@ Vue.prototype.$share = (title, desc) => {
         jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
       });
 
-      wx.ready(function() {
+      wx.ready(function () {
         let wechatShareText = {
           title: title,
           desc: desc,
@@ -128,6 +130,8 @@ new Vue({
   el: "#app",
   i18n,
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: "<App/>"
 });

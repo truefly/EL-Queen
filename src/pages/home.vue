@@ -71,7 +71,6 @@ export default {
       pageIndex: 0,
       timeoutFunc: null,
       imgs: [
-        require("../assets/360-o.gif"),
         require("../assets/720-o.gif"),
         require("../assets/btn-border.png"),
         require("../assets/btn.png"),
