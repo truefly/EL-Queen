@@ -24,6 +24,7 @@
     <div @click="updateShowLanguage('zh')"
          class="button-border bg">中文</div>
     <div @click="updateShowLanguage('es')"
+         v-if="gaRegion!=='apac'||gaDevice!=='hpp'"
          class="button-border bg">Español</div>
   </div>
 </template>
@@ -32,7 +33,16 @@
 export default {
   props: ["showLanguage"],
   data() {
-    return {};
+    return {
+      gaRegion,
+      gaDevice
+    };
+  },
+  created() {
+    console.log(gaDevice);
+
+    console.log("this.gaDevice");
+    console.log(this.gaDevice);
   },
   methods: {
     updateShowLanguage(lan) {
